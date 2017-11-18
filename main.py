@@ -7,6 +7,7 @@ import random
 import numpy as np
 import src.assets.buildings
 import src.assets.maps
+import src.assets.display
 import src.Map as mp
 import src.Resources as rs
 import src.Visuals as vs
@@ -15,23 +16,10 @@ pygame.init()
 pygame.font.init() 
 myfont = pygame.font.SysFont('Comic Sans MS', 30)
 
-CELL_SIZE = 25 # size in px of the grid cells squares
-START_POSITION = (0, 0)
-GAME_WINDOW_SIZE = (700, 500)
 FRAME_RATE = 10
 RESOURCE_TIME_STEP = 2   # seconds per resource update
 BLACK = ( 0, 0, 0)
 WHITE = ( 255, 255, 255)
-
-# def has_moved(keys):
-#     """
-#     return true if a key for movement was pressed
-#     """
-#     movement = (keys[pygame.K_LEFT] or
-#                 keys[pygame.K_RIGHT] or
-#                 keys[pygame.K_UP] or
-#                 keys[pygame.K_DOWN])
-#     return movement
 
 def has_built(keys):
     """
@@ -44,15 +32,27 @@ def has_built(keys):
 
 
 if __name__ == "__main__":
-    game_screen = pygame.display.set_mode(GAME_WINDOW_SIZE)
     sprites_list = pygame.sprite.Group()
     pygame.display.set_caption("XKCD World")
     game_running = True
-    a_position = START_POSITION
+
+    # loading map file
     map_visible = src.assets.maps.map_visible
     map_size = src.assets.maps.map_size
     map_borders = src.assets.maps.map_borders
-    all_resources = rs.AllResource(START_POSITION)
+    map_background_img = src.assets.maps.map_background_img
+    a_position = src.assets.maps.start_position
+
+    # loading display properties
+    cell_size = src.assets.display.cell_size
+    game_window_size = src.assets.display.game_window_size
+    map_window_size = src.assets.display.map_window_size
+
+    display = vs.Display(cell_size, game_window_size, map_window_size) 
+
+    # loading ressources
+    all_resources = rs.AllResource(a_position)
+
     attack_flag = False
     clock = pygame.time.Clock()
     resource_timer = 0
@@ -96,10 +96,24 @@ if __name__ == "__main__":
         resource_timer += 1
 
         # update screen
+
+        # display background map
+        display.display_backgound_map(a_position, map_background_img)
+
+        # display all building
+
+
+        # black unvisible areas
+        # vs.black_unvisible(a_position, CELL_SIZE, MAP_WINDOW_SIZE, map_visible, game_screen)
+        
         # print X at cell 5,5
-        game_screen.fill(BLACK)
-        text = myfont.render("X", True, WHITE)
-        game_screen.blit(text,vs.cell_to_px((5,5), a_position, CELL_SIZE, GAME_WINDOW_SIZE))
+        # just a debug text fixed on the screen
+#         text = myfont.render("X", True, WHITE)
+#         game_screen.blit(text,vs.cell_to_px((5,5), a_position, CELL_SIZE, MAP_WINDOW_SIZE))
+
+
+        # display right panel
+        # TODO
 
 
         pygame.display.update()

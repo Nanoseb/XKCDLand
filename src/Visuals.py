@@ -1,23 +1,85 @@
+import pygame
 
-def cell_to_px(cell_position, a_position, cell_size, window_size):
-    """ 
-        Convert a cell position (i,j) in the grid to a pixel position on the screen
-        return the (x,y) tuple of the top left corner of the square
-        if not on the screen, return (None, None)
-        /!\ px coordinates and cell coordinates are inverted
-    """
-    
-    a_px_position = (int(window_size[0]/2 - cell_size/2),
-                     int(window_size[1]/2 - cell_size/2))
+import numpy as np
 
-    cell_px_position = ((cell_position[1] - a_position[1])*cell_size + a_px_position[0],
-                        (cell_position[0] - a_position[0])*cell_size + a_px_position[1])
-    if cell_px_position[0] < -cell_size or \
-       cell_px_position[1] < -cell_size or \
-       cell_px_position[0] > window_size[0] or \
-       cell_px_position[1] > window_size[1]:
-        return (None, None)
 
-    return cell_px_position
+class Display(object):
+    def __init__(self, cell_size, window_size, map_window_size):
+        self.cell_size = cell_size
+        self.window_size = window_size
+        self.map_window_size = map_window_size
 
+        self.game_screen = pygame.display.set_mode(self.window_size)
+        
+
+
+    def cell_to_px(self, cell_position, a_position):
+        """ 
+            Convert a cell position (i,j) in the grid to a pixel position on the screen
+            return the (x,y) tuple of the top left corner of the square
+            /!\ px coordinates and cell coordinates are inverted
+        """
+        
+        a_px_position = (int(self.window_size[0]/2 - self.cell_size/2),
+                         int(self.window_size[1]/2 - self.cell_size/2))
+
+        cell_px_position = ((cell_position[1] - a_position[1])*self.cell_size + a_px_position[0],
+                            (cell_position[0] - a_position[0])*self.cell_size + a_px_position[1])
+    #     if cell_px_position[0] < -cell_size or \
+    #        cell_px_position[1] < -cell_size or \
+    #        cell_px_position[0] > window_size[0] or \
+    #        cell_px_position[1] > window_size[1]:
+    #         return (None, None)
+
+        return cell_px_position
+
+
+    def display_backgound_map(self, a_position, image):
+        """
+        Display the background image at the right location on the screen
+        """
+        self.game_screen.fill((0,0,0))
+        img = pygame.image.load(image).convert()
+        
+        origin_position = self.cell_to_px((0,0), a_position)
+
+        self.game_screen.blit(img, origin_position)
+        return
+
+
+    def display_building(self, a_position, building):
+        """
+        Display the building given in argument on the right cell on the screen
+        For now, only display its name and a rectangle around the cell
+        """
+        
+        font = pygame.font.SysFont('Comic Sans MS', 15)
+        i,j = building.position
+
+        cell_px_position = self.cell_to_px(building.position, a_position)
+
+        text = font.render(building.name, True, color)
+        self.game_screen.blit(text, cell_px_position)
+
+        rectangle = cell_px_position + (cell_size, cell_size)
+        pygame.draw.Rect(self.game_screen, color, rectangle, 2)
+
+        return
+
+
+
+# def black_unvisible(a_position, cell_size, window_size, map_visible, game_screen):
+#     """
+#     Black out unvisible cells of the screen
+#     """
+
+#     N, M = np.shape(map_visible)
+#     for i in range(N):
+#         for j in range(M):
+#             if map_visible[i,j]:
+#                 cell_px_position = cell_to_px((i,j), a_position, cell_size, window_size)
+#                 rectangle = cell_px_position + (cell_size, cell_size)
+#                 pygame.draw.Rect(game_screen, (0,0,0), rectangle, 0)
+
+#     return
 
