@@ -1,10 +1,23 @@
-def calculate_next_position(keys, a_positioin):
+def calculate_next_position(keys, a_position, map_size):
     """ 
     update a position based on the key press
-    return new position touple
+    return new position tuple and a boolean expressing if a has moved
     """
     new_position = a_position
-    return new_position
+    if keys[pygame.K_LEFT] and a_position[1] != 0:
+        new_position[1] -= 1
+
+    elif keys[pygame.K_RIGHT] and a_position[1] != map_size[1]:
+        new_position[1] += 1
+
+    elif keys[pygame.K_UP] and a_position[0] != 0:
+        new_position[0] -= 1
+
+    elif keys[pygame.K_DOWN] and a_position[0] != map_size[0]:
+        new_position[0] += 1
+    has_moved = (new_position != a_position)
+
+    return new_position, has_moved
 
 def update_visible_map(a_position, map_visible):
     """
