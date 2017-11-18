@@ -22,6 +22,17 @@ RESOURCE_TIME_STEP = 2   # seconds per resource update
 BLACK = ( 0, 0, 0)
 WHITE = ( 255, 255, 255)
 
+building_keys = ['h'] #rs.get_building_keys()
+
+def handle_building_menu():
+    building_menu = True
+    while building_menu is True:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                building_menu = False
+                if chr(event.key) in building_keys:
+                    return available_buildings['Home']
+
 
 if __name__ == "__main__":
     sprites_list = pygame.sprite.Group()
@@ -90,14 +101,14 @@ if __name__ == "__main__":
         # building action:
         #   add/upgrade building in buildings_list 
         if key_pressed == pygame.K_b:
-            # draw menu for buildings (c == cancel)
-            # wait for choice
-            #
-            # TODO: start building dialogue
-            output_text = all_resources.add_building(a_position, 
-                                                     available_buildings["Home"])
-            print(output_text)
+            # TODO: draw dialogue
+            new_building = handle_building_menu()
+            if new_building:
+                output_text = all_resources.add_building(a_position, new_building)
+                print(output_text)
 
+
+            
         # calculate next time step resources
         if resource_timer > (FRAME_RATE * RESOURCE_TIME_STEP):
             all_resources.calculate_next(a_position)
