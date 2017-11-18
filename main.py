@@ -16,6 +16,8 @@ pygame.init()
 map_size = (10,10)
 START_POSITION = (0, 0)
 GAME_WINDOW_SIZE = (700, 500)
+FRAME_RATE = 10
+RESOURCE_TIME_STEP = 2   # seconds per resource update
 BLACK = ( 0, 0, 0)
 WHITE = ( 255, 255, 255)
 
@@ -50,6 +52,7 @@ if __name__ == "__main__":
     all_resources = rs.AllResource(START_POSITION)
     attack_flag = False
     clock = pygame.time.Clock()
+    resource_timer = 0
     while game_running:
         for event in pygame.event.get():
             # quit when on klicking x or pressing the x key
@@ -78,9 +81,12 @@ if __name__ == "__main__":
         #   add/upgrade building in buildings_list 
 
         # calculate next time step resources
-        all_resources.calculate_next(a_position)
+        if resource_timer > (FRAME_RATE * RESOURCE_TIME_STEP):
+            all_resources.calculate_next(a_position)
+            resource_timer = 0
+        resource_timer += 1
 
         # update screen
-    clock.tick(10)
+        clock.tick(FRAME_RATE)
 
     pygame.quit()
