@@ -12,8 +12,10 @@ import src.Resources as rs
 import src.Visuals as vs
 
 pygame.init()
+pygame.font.init() 
+myfont = pygame.font.SysFont('Comic Sans MS', 30)
 
-map_size = (10,10)
+CELL_SIZE = 25 # size in px of the grid cells squares
 START_POSITION = (0, 0)
 GAME_WINDOW_SIZE = (700, 500)
 FRAME_RATE = 10
@@ -48,6 +50,7 @@ if __name__ == "__main__":
     game_running = True
     a_position = START_POSITION
     map_visible = src.assets.maps.map_visible
+    map_size = src.assets.maps.map_size
     map_borders = src.assets.maps.map_borders
     all_resources = rs.AllResource(START_POSITION)
     attack_flag = False
@@ -67,10 +70,12 @@ if __name__ == "__main__":
         # calculate next position
         a_position, has_moved = mp.calculate_next_position(keys, a_position, map_size)
         if has_moved:
+            print(a_position)
             #   check if space needs to be made visible in map_visible
-            map_visible = mp.update_visible_map(a_position, map_visible)
+            #map_visible = mp.update_visible_map(a_position, map_visible)
             #   check if border was attacked in map_borders
-            attack_flag = mp.check_attack(a_position, map_borders) 
+            #attack_flag = mp.check_attack(a_position, map_borders) 
+            pass
 
         if attack_flag:
             # TODO:
@@ -91,6 +96,13 @@ if __name__ == "__main__":
         resource_timer += 1
 
         # update screen
+        # print X at cell 5,5
+        game_screen.fill(BLACK)
+        text = myfont.render("X", True, WHITE)
+        game_screen.blit(text,vs.cell_to_px((5,5), a_position, CELL_SIZE, GAME_WINDOW_SIZE))
+
+
+        pygame.display.update()
         clock.tick(FRAME_RATE)
 
     pygame.quit()
