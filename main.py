@@ -22,15 +22,6 @@ RESOURCE_TIME_STEP = 2   # seconds per resource update
 BLACK = ( 0, 0, 0)
 WHITE = ( 255, 255, 255)
 
-def has_built(keys):
-    """
-    return true if a key for a building action was pressed
-    """
-    built = (keys[pygame.K_b] or
-             keys[pygame.K_u])
-    return built
-
-
 
 if __name__ == "__main__":
     sprites_list = pygame.sprite.Group()
