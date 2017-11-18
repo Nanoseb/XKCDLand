@@ -3,19 +3,18 @@
 # Food
 # Corners (priesthood) (positive only!)
 # Soldiers (positive only!)
+from Resources import Building
 
+home = {'Name': "Home",
+        'Resource Use': {'food': 1,
+                         'corners': 4},
+        'Initial Cost': {},
+        'Min Corners': 4}
 
-home = Building("Home", 
-                {"food": 1,
-                 "corners": 4},
-                 {})
+school = {'Name': "School",
+          'Resource Use': {'food': -1,
+                           'money': -1,
+                           'corners': 5},
+          'Initial Cost': {'money': 5},
+          'Min Corners': 4}
 
-class Building(object):
-    def __init__(self, name, resource_use, initial_cost):
-        """
-        resource_use: dictionary of resources used, pos == output, neg == consumed
-        initial cost: dictionary of resources used to build this thing, all pos
-        """
-        self.Name = name
-        self.InOut = resource_use
-        self.Cost = initial_cost
