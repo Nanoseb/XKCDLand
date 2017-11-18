@@ -1,13 +1,36 @@
 import pygame
 import numpy as np
 
+import src.assets.menu
+
+def display_initial_menu(menu):
+    menu.menu_entries = src.assets.menu.initial_menu 
+    menu.display_menu()
+    return
+
+def display_building_menu(available_building, menu):
+    menu.clear_menu()
+
+    for _, building in available_building.iteritems():
+        if building['Build Key']:
+            text = building["Name"]
+            menu.add_entry(text, building['Build Key'])
+    menu.add_entry("Cancel", "c")
+    menu.display_menu()
+    return
+
+def display_soldier_menu(menu):
+    menu.menu_entries = src.assets.menu.soldier_menu 
+    menu.display_menu()
+    return
+
 
 class Menu(object):
     def __init__(self, 
                  window_size,
                  map_window_size,
                  game_screen,
-                 margin=20,
+                 margin=5,
                  color=(255, 255, 255),
                  font_size=20):
 
@@ -24,7 +47,7 @@ class Menu(object):
     def clear_menu(self):
         rectangle = self.menu_coordinates
         pygame.draw.rect(self.game_screen, (0,0,0), rectangle, 0)
-        self.entries = []
+        self.menu_entries = []
         return
 
     def add_entry(self, text, key):
@@ -40,7 +63,7 @@ class Menu(object):
 
         for i, entry in enumerate(self.menu_entries):
             text_position = (top_x, top_y + i*(self.font_size+5))
-            text = font.render(entry["text"], True, self.color)
+            text = font.render("(" + entry['key'] + ') ' + entry["text"], True, self.color)
             self.game_screen.blit(text, text_position)
 
         return

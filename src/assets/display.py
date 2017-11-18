@@ -1,4 +1,4 @@
 
-game_window_size = (700, 500)
-map_window_size = (550, 500)
+game_window_size = (1000, 600)
+map_window_size = (850, 600)
 

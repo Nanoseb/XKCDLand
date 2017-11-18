@@ -17,7 +17,7 @@ pygame.key.set_repeat(500, 100)
 pygame.font.init() 
 myfont = pygame.font.SysFont('Comic Sans MS', 30)
 
-FRAME_RATE = 10
+FRAME_RATE = 30
 RESOURCE_TIME_STEP = 2   # seconds per resource update
 BLACK = ( 0, 0, 0)
 WHITE = ( 255, 255, 255)
@@ -57,10 +57,9 @@ if __name__ == "__main__":
                          map_window_size,
                          map_background_img) 
     menu = vs.Menu(game_window_size,
-                 map_window_size,
-                 display.game_screen)
-    menu.add_entry("(b) new building", "b")
-    menu.display_menu()
+                   map_window_size,
+                   display.game_screen)
+    vs.display_initial_menu(menu)
 
 
     # loading ressources
@@ -101,14 +100,18 @@ if __name__ == "__main__":
         # building action:
         #   add/upgrade building in buildings_list 
         if key_pressed == pygame.K_b:
-            # TODO: draw dialogue
+            vs.display_building_menu(available_buildings, menu)
             new_building = handle_building_menu()
             if new_building:
                 output_text = all_resources.add_building(a_position, new_building)
                 print(output_text)
 
+        # soldier action:
+        #   add/upgrade building in buildings_list 
+        if key_pressed == pygame.K_s:
+            vs.display_soldier_menu(available_buildings, menu)
+            # TODO do something with the key presses
 
-            
         # calculate next time step resources
         if resource_timer > (FRAME_RATE * RESOURCE_TIME_STEP):
             all_resources.calculate_next(a_position)
@@ -117,7 +120,8 @@ if __name__ == "__main__":
 
         # update screen
         display.update_display(a_position, all_resources, map_visible)
-        menu.display_menu()
+        vs.display_initial_menu(menu)
+
         # display right panel
         # TODO
 
