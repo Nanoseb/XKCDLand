@@ -5,7 +5,8 @@ A game for the 2017 xkcd ludum dare
 import pygame
 import random
 import numpy as np
-import assets.xkcdAssets
+import src.assets.buildings
+import src.assets.maps
 import src.Map as mp
 import src.Resources as rs
 import src.Visuals as vs
@@ -44,8 +45,9 @@ if __name__ == "__main__":
     pygame.display.set_caption("XKCD World")
     game_running = True
     a_position = START_POSITION
-    map_visible = assets.xkcdAssets.map_visible
-    map_borders = assets.xkcdAssets.map_borders
+    map_visible = src.assets.maps.map_visible
+    map_borders = src.assets.maps.map_borders
+    all_resources = rs.AllResource(START_POSITION)
     attack_flag = False
     clock = pygame.time.Clock()
     while game_running:
@@ -72,10 +74,11 @@ if __name__ == "__main__":
             # calculate results
             pass
 
-        # building:
+        # building action:
         #   add/upgrade building in buildings_list 
 
         # calculate next time step resources
+        all_resources.calculate_next()
 
         # update screen
     clock.tick(10)

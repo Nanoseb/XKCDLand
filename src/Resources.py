@@ -25,3 +25,6 @@ class AllResource(object):
         self.food = 0
         self.fighters = 0
         self.buildings = [Building(assets.buildings.home, start_position)]
+
+    def calculate_next(self):
+        print("calculating next resources")
