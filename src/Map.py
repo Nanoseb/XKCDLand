@@ -2,22 +2,22 @@ import pygame
 import numpy as np
     
 
-def calculate_next_position(keys, a_position, map_size):
+def calculate_next_position(new_key, a_position, map_size):
     """ 
     update a position based on the key press
     return new position tuple and a boolean expressing if a has moved
     """
     new_position = list(a_position)
-    if keys[pygame.K_LEFT] and a_position[1] != 0:
+    if new_key == pygame.K_LEFT and a_position[1] != 0:
         new_position[1] -= 1
 
-    elif keys[pygame.K_RIGHT] and a_position[1] != map_size[1]:
+    elif new_key == pygame.K_RIGHT and a_position[1] != map_size[1]:
         new_position[1] += 1
 
-    elif keys[pygame.K_UP] and a_position[0] != 0:
+    elif new_key == pygame.K_UP and a_position[0] != 0:
         new_position[0] -= 1
 
-    elif keys[pygame.K_DOWN] and a_position[0] != map_size[0]:
+    elif new_key == pygame.K_DOWN and a_position[0] != map_size[0]:
         new_position[0] += 1
     has_moved = (new_position != list(a_position))
 

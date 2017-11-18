@@ -13,6 +13,7 @@ import src.Resources as rs
 import src.Visuals as vs
 
 pygame.init()
+pygame.key.set_repeat(500, 100)
 pygame.font.init() 
 myfont = pygame.font.SysFont('Comic Sans MS', 30)
 
@@ -61,6 +62,8 @@ if __name__ == "__main__":
     clock = pygame.time.Clock()
     resource_timer = 0
     while game_running:
+       
+        key_pressed = None
         for event in pygame.event.get():
             # quit when on klicking x or pressing the x key
             if event.type == pygame.QUIT:
@@ -68,11 +71,13 @@ if __name__ == "__main__":
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_x:
                     game_running = False
+                else:
+                    key_pressed = event.key
         
-        keys = pygame.key.get_pressed()
+        #keys = pygame.key.get_pressed()
         # movement:
         # calculate next position
-        a_position, has_moved = mp.calculate_next_position(keys, a_position, map_size)
+        a_position, has_moved = mp.calculate_next_position(key_pressed, a_position, map_size)
         if has_moved:
             #   check if space needs to be made visible in map_visible
             map_visible = mp.update_visible_map(a_position, map_visible)
@@ -87,7 +92,7 @@ if __name__ == "__main__":
 
         # building action:
         #   add/upgrade building in buildings_list 
-        if keys[pygame.K_b]:
+        if key_pressed == pygame.K_b:
             # draw menu for buildings (c == cancel)
             # wait for choice
             #
