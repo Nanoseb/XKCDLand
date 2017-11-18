@@ -3,7 +3,6 @@
 # Food
 # Corners (priesthood) (positive only!)
 # Soldiers (positive only!)
-from Resources import Building
 
 home = {'Name': "Home",
         'Resource Use': {'food': 1,
