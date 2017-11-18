@@ -54,6 +54,12 @@ if __name__ == "__main__":
                          game_window_size,
                          map_window_size,
                          map_background_img) 
+    menu = vs.Menu(game_window_size,
+                 map_window_size,
+                 display.game_screen)
+    menu.add_entry("(b) new building", "b")
+    menu.display_menu()
+
 
     # loading ressources
     all_resources = rs.AllResource(a_position)
@@ -109,7 +115,7 @@ if __name__ == "__main__":
 
         # update screen
         display.update_display(a_position, all_resources, map_visible)
-
+        menu.display_menu()
         # display right panel
         # TODO
 

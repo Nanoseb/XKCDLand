@@ -1,6 +1,50 @@
 import pygame
-
 import numpy as np
+
+
+class Menu(object):
+    def __init__(self, 
+                 window_size,
+                 map_window_size,
+                 game_screen,
+                 margin=20,
+                 color=(255, 255, 255),
+                 font_size=20):
+
+        self.menu_coordinates = (map_window_size[0],
+                                 int(window_size[1]/2),
+                                 window_size[0] - map_window_size[0],
+                                 window_size[1] - map_window_size[1]) 
+        self.font_size = font_size
+        self.color = color
+        self.margin = margin
+        self.menu_entries = [] 
+        self.game_screen = game_screen
+
+    def clear_menu(self):
+        rectangle = self.menu_coordinates
+        pygame.draw.rect(self.game_screen, (0,0,0), rectangle, 0)
+        self.entries = []
+        return
+
+    def add_entry(self, text, key):
+        entry = {"key": key, "text":text}
+        self.menu_entries.append(entry)
+        return
+    
+    def display_menu(self):
+
+        font = pygame.font.SysFont('Comic Sans MS', self.font_size)
+        top_y = self.menu_coordinates[1] + self.margin
+        top_x = self.menu_coordinates[0] + self.margin
+
+        for i, entry in enumerate(self.menu_entries):
+            text_position = (top_x, top_y + i*(self.font_size+5))
+            text = font.render(entry["text"], True, self.color)
+            self.game_screen.blit(text, text_position)
+
+        return
+
 
 
 class Display(object):
@@ -39,10 +83,29 @@ class Display(object):
         # display A
         self.display_A()
 
-
-        # 
+        # display black when not visible
         self.black_unvisible(map_visible) 
+
+        # black background for right panel
+        self.display_black_panel()
+
         return
+
+    def display_black_panel(self):
+        """
+        Display the right panel black background
+        """
+        
+
+        rectangle = (self.map_window_size[0],
+                     0,
+                     self.window_size[0] - self.map_window_size[0],
+                     self.window_size[1]) 
+        pygame.draw.rect(self.game_screen, (0,0,0), rectangle, 0)
+        return
+
+
+
 
 
     def cell_to_px(self, cell_position):
