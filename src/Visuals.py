@@ -17,6 +17,7 @@ def display_building_menu(available_building, menu):
             menu.add_entry(text, building['Build Key'])
     menu.add_entry("Cancel", "c")
     menu.display_menu()
+    pygame.display.update()
     return
 
 def display_soldier_menu(menu):
