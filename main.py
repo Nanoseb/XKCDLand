@@ -18,20 +18,11 @@ myfont = pygame.font.SysFont('Comic Sans MS', 30)
 CELL_SIZE = 25 # size in px of the grid cells squares
 START_POSITION = (0, 0)
 GAME_WINDOW_SIZE = (700, 500)
+MAP_WINDOW_SIZE = (650, 500)
 FRAME_RATE = 10
 RESOURCE_TIME_STEP = 2   # seconds per resource update
 BLACK = ( 0, 0, 0)
 WHITE = ( 255, 255, 255)
-
-# def has_moved(keys):
-#     """
-#     return true if a key for movement was pressed
-#     """
-#     movement = (keys[pygame.K_LEFT] or
-#                 keys[pygame.K_RIGHT] or
-#                 keys[pygame.K_UP] or
-#                 keys[pygame.K_DOWN])
-#     return movement
 
 def has_built(keys):
     """
@@ -52,6 +43,7 @@ if __name__ == "__main__":
     map_visible = src.assets.maps.map_visible
     map_size = src.assets.maps.map_size
     map_borders = src.assets.maps.map_borders
+    map_background_img = src.assets.maps.map_background_img
     all_resources = rs.AllResource(START_POSITION)
     attack_flag = False
     clock = pygame.time.Clock()
@@ -92,10 +84,25 @@ if __name__ == "__main__":
         resource_timer += 1
 
         # update screen
-        # print X at cell 5,5
+
+        # display background map
         game_screen.fill(BLACK)
+        vs.display_backgound_map(a_position, CELL_SIZE, MAP_WINDOW_SIZE, map_background_img, game_screen)
+
+        # display all building
+
+
+        # black unvisible areas
+        # vs.black_unvisible(a_position, CELL_SIZE, MAP_WINDOW_SIZE, map_visible, game_screen)
+        
+        # print X at cell 5,5
+        # just a debug text fixed on the screen
         text = myfont.render("X", True, WHITE)
-        game_screen.blit(text,vs.cell_to_px((5,5), a_position, CELL_SIZE, GAME_WINDOW_SIZE))
+        game_screen.blit(text,vs.cell_to_px((5,5), a_position, CELL_SIZE, MAP_WINDOW_SIZE))
+
+
+        # display right panel
+        # TODO
 
 
         pygame.display.update()
