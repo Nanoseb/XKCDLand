@@ -8,7 +8,6 @@ import numpy as np
 from src.assets.buildings import available_buildings
 import src.assets.maps
 import src.assets.display
-import src.assets.menu
 import src.Map as mp
 import src.Resources as rs
 import src.Visuals as vs
@@ -18,7 +17,7 @@ pygame.key.set_repeat(500, 100)
 pygame.font.init() 
 myfont = pygame.font.SysFont('Comic Sans MS', 30)
 
-FRAME_RATE = 10
+FRAME_RATE = 30
 RESOURCE_TIME_STEP = 2   # seconds per resource update
 BLACK = ( 0, 0, 0)
 WHITE = ( 255, 255, 255)
@@ -92,12 +91,19 @@ if __name__ == "__main__":
         if key_pressed == pygame.K_b:
             # draw menu for buildings (c == cancel)
             # wait for choice
-            #
-            # TODO: start building dialogue
             vs.display_building_menu(available_buildings, menu)
             output_text = all_resources.add_building(a_position, 
                                                      available_buildings["Home"])
             print(output_text)
+
+
+        # soldier action:
+        #   add/upgrade building in buildings_list 
+        if key_pressed == pygame.K_s:
+            vs.display_soldier_menu(available_buildings, menu)
+            # TODO do something with the key presses
+
+
 
         # calculate next time step resources
         if resource_timer > (FRAME_RATE * RESOURCE_TIME_STEP):
