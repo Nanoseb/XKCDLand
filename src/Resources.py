@@ -23,18 +23,20 @@ class Building(object):
         self.DistanceFromA = np.sqrt((self.Position[0] - a_position[0])**2 +
                                      (self.Position[1] - a_position[1])**2)
 
-    def check_activity(self, avail_money, avail_food, current_corners):
+    def check_activity(self, available):
         # bear in mind: consumed good are negative in InOut
-        self.ActiveState = ((avail_money + self.InOut['money'] >= 0) &
-                            (avail_food + self.InOut['food'] >= 0) &
-                            (current_corners >= self.MinCorners))
+        state = True
+        for key in self.InOut.keys():
+            state = state & (available[key] + self.InOut[key] >= 0)
+        state = state & (available['corners'] >= self.MinCorners)
+        self.ActiveState = state
         
 class AllResource(object):
     def __init__(self, start_position):
-        self.Money = 0
-        self.Food = 0
-        self.Corners = 4
-        self.Soldiers = 0
+        self.ResourceDict = {'money': 0,
+                             'food': 0,
+                             'corners': 4,
+                             'soldiers': 0}
         self.Buildings = [Building(assets.buildings.home, start_position)]
 
     def calculate_next(self, current_position):
@@ -45,18 +47,17 @@ class AllResource(object):
 
         for house in self.Buildings:
             house.update_distance_from_a(current_position)
-            house.check_activity(self.Money, self.Food, self.Corners)
+            house.check_activity(self.ResourceDict)
             if house.ActiveState is True:
                 self.update_resources(house)
                 next_corners = max(next_corners, house.InOut['corners'])
         self.Buildings.sort(key=lambda x: x.DistanceFromA) 
-        self.Corners = next_corners
-        print(self.Food)
+        self.ResourceDict['corners'] = next_corners
+        print(self.ResourceDict)
 
     def update_resources(self, current_building):
-        self.Money += current_building.InOut['money']
-        self.Food += current_building.InOut['food']
-        self.Soldiers += current_building.InOut['soldiers']
+        for key in current_building.InOut.keys():
+            self.ResourceDict[key] += current_building.InOut[key]
 
     def check_sufficient_resources(self, specifications):
         # TODO: implement actual check
