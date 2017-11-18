@@ -5,15 +5,18 @@
 # Soldiers (positive only!)
 
 home = {'Name': "Home",
-        'Resource Use': {'food': 1,
-                         'corners': 4},
+        'Resource Change': {'food': 1,
+                         'money': 0,
+                         'corners': 4,
+                         'soldiers': 0},
         'Initial Cost': {},
         'Min Corners': 4}
 
 school = {'Name': "School",
-          'Resource Use': {'food': -1,
-                           'money': -1,
-                           'corners': 5},
+          'Resource Change': {'food': -1,
+                              'money': -1,
+                              'corners': 5,
+                              'soldiers': 0},
           'Initial Cost': {'money': 5},
           'Min Corners': 4}
 
