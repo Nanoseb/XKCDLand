@@ -7,6 +7,7 @@ import random
 import numpy as np
 import src.assets.buildings
 import src.assets.maps
+import src.assets.display
 import src.Map as mp
 import src.Resources as rs
 import src.Visuals as vs
@@ -15,10 +16,6 @@ pygame.init()
 pygame.font.init() 
 myfont = pygame.font.SysFont('Comic Sans MS', 30)
 
-CELL_SIZE = 25 # size in px of the grid cells squares
-START_POSITION = (0, 0)
-GAME_WINDOW_SIZE = (700, 500)
-MAP_WINDOW_SIZE = (650, 500)
 FRAME_RATE = 10
 RESOURCE_TIME_STEP = 2   # seconds per resource update
 BLACK = ( 0, 0, 0)
@@ -35,16 +32,27 @@ def has_built(keys):
 
 
 if __name__ == "__main__":
-    game_screen = pygame.display.set_mode(GAME_WINDOW_SIZE)
     sprites_list = pygame.sprite.Group()
     pygame.display.set_caption("XKCD World")
     game_running = True
-    a_position = START_POSITION
+
+    # loading map file
     map_visible = src.assets.maps.map_visible
     map_size = src.assets.maps.map_size
     map_borders = src.assets.maps.map_borders
     map_background_img = src.assets.maps.map_background_img
-    all_resources = rs.AllResource(START_POSITION)
+    a_position = src.assets.maps.start_position
+
+    # loading display properties
+    cell_size = src.assets.display.cell_size
+    game_window_size = src.assets.display.game_window_size
+    map_window_size = src.assets.display.map_window_size
+
+    display = vs.Display(cell_size, game_window_size, map_window_size) 
+
+    # loading ressources
+    all_resources = rs.AllResource(a_position)
+
     attack_flag = False
     clock = pygame.time.Clock()
     resource_timer = 0
@@ -90,8 +98,7 @@ if __name__ == "__main__":
         # update screen
 
         # display background map
-        game_screen.fill(BLACK)
-        vs.display_backgound_map(a_position, CELL_SIZE, MAP_WINDOW_SIZE, map_background_img, game_screen)
+        display.display_backgound_map(a_position, map_background_img)
 
         # display all building
 
@@ -101,8 +108,8 @@ if __name__ == "__main__":
         
         # print X at cell 5,5
         # just a debug text fixed on the screen
-        text = myfont.render("X", True, WHITE)
-        game_screen.blit(text,vs.cell_to_px((5,5), a_position, CELL_SIZE, MAP_WINDOW_SIZE))
+#         text = myfont.render("X", True, WHITE)
+#         game_screen.blit(text,vs.cell_to_px((5,5), a_position, CELL_SIZE, MAP_WINDOW_SIZE))
 
 
         # display right panel
