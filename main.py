@@ -76,6 +76,10 @@ if __name__ == "__main__":
 
         # building action:
         #   add/upgrade building in buildings_list 
+        if keys[pygame.K_b]:
+            # TODO: start building dialogue
+            output_text = all_resources.add_building(a_position, src.assets.buildings.home)
+            print(output_text)
 
         # calculate next time step resources
         if resource_timer > (FRAME_RATE * RESOURCE_TIME_STEP):

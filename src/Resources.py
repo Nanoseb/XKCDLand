@@ -51,10 +51,31 @@ class AllResource(object):
                 next_corners = max(next_corners, house.InOut['corners'])
         self.Buildings.sort(key=lambda x: x.DistanceFromA) 
         self.Corners = next_corners
-        print("calculating next resources")
         print(self.Food)
 
     def update_resources(self, current_building):
         self.Money += current_building.InOut['money']
         self.Food += current_building.InOut['food']
         self.Soldiers += current_building.InOut['soldiers']
+
+    def check_sufficient_resources(self, specifications):
+        # TODO: implement actual check
+        return True
+
+    def check_for_existing_building(self, position):
+        # TODO: implement actual check
+        return True
+
+    def add_building(self, building_specs, position):
+        """
+        checks if a building can be built; if so, a building is added.
+        Returns screen message depending on building success
+        """
+        if self.check_for_existing_building(position) is True:
+            return assets.buildings.messages['on_existing_building']
+        else:
+            if self.check_sufficient_resources(building_specs) is True:
+                self.Buildings.append(Building(building_specs, position))
+                return assets.buildings.messages['success']
+            else:
+                return assets.buildings.messages['no_resource']
