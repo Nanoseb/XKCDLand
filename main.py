@@ -78,7 +78,7 @@ if __name__ == "__main__":
         #   add/upgrade building in buildings_list 
 
         # calculate next time step resources
-        all_resources.calculate_next()
+        all_resources.calculate_next(a_position)
 
         # update screen
     clock.tick(10)
