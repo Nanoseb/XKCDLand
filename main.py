@@ -12,6 +12,7 @@ import src.Visuals as vs
 
 pygame.init()
 
+map_size = (10,10)
 START_POSITION = (0, 0)
 GAME_WINDOW_SIZE = (700, 500)
 BLACK = ( 0, 0, 0)
