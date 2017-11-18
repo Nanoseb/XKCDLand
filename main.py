@@ -74,7 +74,6 @@ if __name__ == "__main__":
         # calculate next position
         a_position, has_moved = mp.calculate_next_position(keys, a_position, map_size)
         if has_moved:
-            print(a_position)
             #   check if space needs to be made visible in map_visible
             map_visible = mp.update_visible_map(a_position, map_visible)
             #   check if border was attacked in map_borders
