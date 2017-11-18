@@ -4,7 +4,6 @@ import numpy as np
 import src.assets.menu
 
 def display_initial_menu(menu):
-    print("display initial menu")
     menu.menu_entries = src.assets.menu.initial_menu 
     menu.display_menu()
     return
