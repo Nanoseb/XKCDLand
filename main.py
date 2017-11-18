@@ -8,6 +8,7 @@ import numpy as np
 from src.assets.buildings import available_buildings
 import src.assets.maps
 import src.assets.display
+import src.assets.menu
 import src.Map as mp
 import src.Resources as rs
 import src.Visuals as vs
@@ -54,10 +55,9 @@ if __name__ == "__main__":
                          map_window_size,
                          map_background_img) 
     menu = vs.Menu(game_window_size,
-                 map_window_size,
-                 display.game_screen)
-    menu.add_entry("(b) new building", "b")
-    menu.display_menu()
+                   map_window_size,
+                   display.game_screen)
+    vs.display_initial_menu(menu)
 
 
     # loading ressources
@@ -98,6 +98,7 @@ if __name__ == "__main__":
             # wait for choice
             #
             # TODO: start building dialogue
+            vs.display_building_menu(available_buildings, menu)
             output_text = all_resources.add_building(a_position, 
                                                      available_buildings["Home"])
             print(output_text)
@@ -110,7 +111,8 @@ if __name__ == "__main__":
 
         # update screen
         display.update_display(a_position, all_resources, map_visible)
-        menu.display_menu()
+        vs.display_initial_menu(menu)
+
         # display right panel
         # TODO
 
