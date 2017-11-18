@@ -56,27 +56,52 @@ class AllResource(object):
         print(self.ResourceDict)
 
     def update_resources(self, current_building):
+        """
+        calculate resource in- and ouput of buildings,
+        pay soldiers and reduce number of soldiers if not all can be paid
+        """
         for key in current_building.InOut.keys():
             self.ResourceDict[key] += current_building.InOut[key]
 
+        sufficient_soldier_pay = ((self.ResourceDict['soldiers'] <= self.ResourceDict['money']) &
+                                  (self.ResourceDict['soldiers'] <= self.ResourceDict['food']))
+        if not sufficient_soldier_pay:
+            self.ResourceDict['soldiers'] = min(self.ResourceDict['money'], 
+                                                self.ResourceDict['food'])
+        self.ResourceDict['money'] -= self.ResourceDict['soldiers']
+        self.ResourceDict['money'] -= self.ResourceDict['soldiers']
+        
+
     def check_sufficient_resources(self, specifications):
-        # TODO: implement actual check
-        return True
+        sufficient_resources = True
+        for key in specifications['Initial Cost'].keys():
+            sufficient_resources &= (specifications['Initial Cost'][key] <= self.ResourceDict[key])
+        sufficient_resources &= (specifications['Min Corners'] <= self.ResourceDict['corners'])
+                               
+        return sufficient_resources
 
     def check_for_existing_building(self, position):
-        # TODO: implement actual check
-        return True
+        """
+        Check if there is an existing building at the current position
+        if there is, return the name of the building, otherwise return false
+        """
+        existing_building = False
+        for house in self.Buildings:
+            if house.Position == position:
+                existing_building = house.Name
+        return existing_building
 
-    def add_building(self, building_specs, position):
+    def add_building(self, position, building_specs):
         """
         checks if a building can be built; if so, a building is added.
         Returns screen message depending on building success
         """
-        if self.check_for_existing_building(position) is True:
+        print("Debug: adding building")
+        if self.check_for_existing_building(position) is not False:
             return assets.buildings.messages['on_existing_building']
         else:
             if self.check_sufficient_resources(building_specs) is True:
                 self.Buildings.append(Building(building_specs, position))
-                return assets.buildings.messages['success']
+                return assets.buildings.messages['build_success']
             else:
                 return assets.buildings.messages['no_resource']
