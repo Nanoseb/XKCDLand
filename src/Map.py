@@ -47,7 +47,7 @@ def update_visible_map(a_position, map_visible):
     for i in range(N):
         for j in range(M):
             if (i == a[0] and j >= a[1]-2 and  j <= a[1]+2) or \
-                    (j == a[1] and i >= a[0]-2 and  i >= a[0]-2) or \
+                    (j == a[1] and i >= a[0]-2 and  i <= a[0]+2) or \
                     (i >= a[0]-1 and i <= a[0]+1 and  j >= a[1]-1 and j <= a[1]+1):
                 map_visible[i,j] = 1
 

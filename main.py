@@ -76,7 +76,7 @@ if __name__ == "__main__":
         if has_moved:
             print(a_position)
             #   check if space needs to be made visible in map_visible
-            #map_visible = mp.update_visible_map(a_position, map_visible)
+            map_visible = mp.update_visible_map(a_position, map_visible)
             #   check if border was attacked in map_borders
             #attack_flag = mp.check_attack(a_position, map_borders) 
             pass

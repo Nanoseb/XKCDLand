@@ -104,10 +104,10 @@ class Display(object):
         N, M = np.shape(map_visible)
         for i in range(N):
             for j in range(M):
-                if map_visible[i,j]:
+                if not map_visible[i,j]:
                     cell_px_position = self.cell_to_px((i,j),)
                     rectangle = cell_px_position + (self.cell_size, self.cell_size)
-                    pygame.draw.Rect(self.game_screen, (0,0,0), rectangle, 0)
+                    pygame.draw.rect(self.game_screen, (0,0,0), rectangle, 0)
 
         return
 
