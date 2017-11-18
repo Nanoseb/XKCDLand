@@ -5,7 +5,7 @@ A game for the 2017 xkcd ludum dare
 import pygame
 import random
 import numpy as np
-import src.assets.buildings
+from src.assets.buildings import available_buildings
 import src.assets.maps
 import src.assets.display
 import src.Map as mp
@@ -89,8 +89,12 @@ if __name__ == "__main__":
         # building action:
         #   add/upgrade building in buildings_list 
         if keys[pygame.K_b]:
+            # draw menu for buildings (c == cancel)
+            # wait for choice
+            #
             # TODO: start building dialogue
-            output_text = all_resources.add_building(a_position, src.assets.buildings.home)
+            output_text = all_resources.add_building(a_position, 
+                                                     available_buildings["Home"])
             print(output_text)
 
         # calculate next time step resources

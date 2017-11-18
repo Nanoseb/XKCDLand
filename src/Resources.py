@@ -3,7 +3,9 @@ Handeling resources for xkcd land
 Keep track of all buildings and soilders
 """
 import numpy as np
-import assets.buildings
+from assets.buildings import available_buildings
+from assets.buildings import building_messages
+
 
 class Building(object):
     def __init__(self, building_specs, position):
@@ -37,7 +39,7 @@ class AllResource(object):
                              'food': 0,
                              'corners': 4,
                              'soldiers': 0}
-        self.Buildings = [Building(assets.buildings.home, start_position)]
+        self.Buildings = [Building(available_buildings['Home'], start_position)]
 
     def calculate_next(self, current_position):
         """
@@ -98,10 +100,10 @@ class AllResource(object):
         """
         print("Debug: adding building")
         if self.check_for_existing_building(position) is not False:
-            return assets.buildings.messages['on_existing_building']
+            return building_messages['on_existing_building']
         else:
             if self.check_sufficient_resources(building_specs) is True:
                 self.Buildings.append(Building(building_specs, position))
-                return assets.buildings.messages['build_success']
+                return building_messages['build_success']
             else:
-                return assets.buildings.messages['no_resource']
+                return building_messages['no_resource']
