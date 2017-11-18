@@ -31,18 +31,6 @@ def update_visible_map(a_position, map_visible):
     return new visibility map
     """
     a = a_position
-    # todo move that somewhere else
-#     visibility_area = np.array([[0, 0, 1, 0, 0],
-#                                 [0, 1, 1, 1, 0],
-#                                 [1, 1, 1, 1, 1],
-#                                 [0, 1, 1, 1, 0],
-#                                 [0, 0, 1, 0, 0]])
-#     newly_visible_map = np.zeros_like(map_visible)
-#     newly_visible_map[a_position-2:a_position+3, 
-#                       a_position-2:a_position+3] = visibility_area
-#     
-#     new_visible = numpy.logical_or(newly_visible_map, map_visible)
-    # todo test extensvely...
     N, M = np.shape(map_visible)
     for i in range(N):
         for j in range(M):

@@ -35,6 +35,10 @@ class Display(object):
         # display buildings
         for building in all_ressources.Buildings:
             self.display_building(building)
+        
+        # display A
+        self.display_A()
+
 
         # 
         self.black_unvisible(map_visible) 
@@ -76,6 +80,26 @@ class Display(object):
         return
 
 
+    def display_A(self):
+        """
+        Display A cell
+        """
+        
+        font = pygame.font.SysFont('Comic Sans MS', 30)
+
+        cell_px_position = self.cell_to_px(self.a_position)
+
+        text = font.render("A", True, (0,0,0))
+        self.game_screen.blit(text, cell_px_position)
+
+        rectangle = cell_px_position + (self.cell_size, self.cell_size)
+        pygame.draw.rect(self.game_screen, (0,0,0), rectangle, 2)
+        return
+
+
+
+
+
     def display_building(self, building):
         """
         Display the building given in argument on the right cell on the screen
@@ -90,7 +114,6 @@ class Display(object):
         self.game_screen.blit(text, cell_px_position)
 
         rectangle = cell_px_position + (self.cell_size, self.cell_size)
-        print(rectangle)
         pygame.draw.rect(self.game_screen, (0,0,0), rectangle, 2)
         return
 
