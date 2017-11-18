@@ -41,14 +41,18 @@ if __name__ == "__main__":
     map_size = src.assets.maps.map_size
     map_borders = src.assets.maps.map_borders
     map_background_img = src.assets.maps.map_background_img
+    cell_size = src.assets.maps.cell_size
     a_position = src.assets.maps.start_position
 
     # loading display properties
-    cell_size = src.assets.display.cell_size
     game_window_size = src.assets.display.game_window_size
     map_window_size = src.assets.display.map_window_size
 
-    display = vs.Display(cell_size, game_window_size, map_window_size) 
+    display = vs.Display(a_position,
+                         cell_size,
+                         game_window_size,
+                         map_window_size,
+                         map_background_img) 
 
     # loading ressources
     all_resources = rs.AllResource(a_position)
@@ -72,7 +76,7 @@ if __name__ == "__main__":
         if has_moved:
             print(a_position)
             #   check if space needs to be made visible in map_visible
-            #map_visible = mp.update_visible_map(a_position, map_visible)
+            map_visible = mp.update_visible_map(a_position, map_visible)
             #   check if border was attacked in map_borders
             #attack_flag = mp.check_attack(a_position, map_borders) 
             pass
@@ -96,21 +100,7 @@ if __name__ == "__main__":
         resource_timer += 1
 
         # update screen
-
-        # display background map
-        display.display_backgound_map(a_position, map_background_img)
-
-        # display all building
-
-
-        # black unvisible areas
-        # vs.black_unvisible(a_position, CELL_SIZE, MAP_WINDOW_SIZE, map_visible, game_screen)
-        
-        # print X at cell 5,5
-        # just a debug text fixed on the screen
-#         text = myfont.render("X", True, WHITE)
-#         game_screen.blit(text,vs.cell_to_px((5,5), a_position, CELL_SIZE, MAP_WINDOW_SIZE))
-
+        display.update_display(a_position, all_resources, map_visible)
 
         # display right panel
         # TODO
