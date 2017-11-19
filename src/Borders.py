@@ -1,14 +1,16 @@
 import numpy as np
 
+
+
 class Border_cell(object):
-    def __init__(self, border_id):
+    def __init__(self, border_id, force_coeficient):
         self.border_id = border_id
         if border_id == 0:
             self.active = False
             self.force = 0
         else:
             self.active = True
-            self.force = 256 - border_id 
+            self.force = (256 - border_id) * force_coeficient 
 
 
     def attack(self, A_square_soldiers):
@@ -17,7 +19,7 @@ class Border_cell(object):
             self.state = False
         else:
             border_defeated = False
-            A_square_soldiers = A_square_soldiers - self.force/2
+            A_square_soldiers = int(A_square_soldiers - self.force/2)
 
         return A_square_soldiers, border_defeated
 
