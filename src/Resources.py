@@ -4,6 +4,7 @@ Keep track of all buildings and soilders
 """
 import numpy as np
 
+from src.assets.water import WATER_TILES
 from .assets.buildings import building_messages, available_buildings
 from .assets import cheats
 
@@ -112,6 +113,9 @@ class AllResource(object):
         Returns screen message depending on building success
         """
         print("Debug: adding building")
+        if position in WATER_TILES:
+            return building_messages['building_on_water']
+
         if self.check_for_existing_building(position) is not False:
             return building_messages['on_existing_building']
         else:
