@@ -30,16 +30,19 @@ def update_visible_map(a_position, map_visible):
     and if so, update the visibility map
     return new visibility map
     """
+
+    new_map_visible = np.copy(map_visible)
+
     a = a_position
-    N, M = np.shape(map_visible)
+    N, M = np.shape(new_map_visible)
     for i in range(N):
         for j in range(M):
             if (i == a[0] and j >= a[1]-2 and  j <= a[1]+2) or \
                     (j == a[1] and i >= a[0]-2 and  i <= a[0]+2) or \
                     (i >= a[0]-1 and i <= a[0]+1 and  j >= a[1]-1 and j <= a[1]+1):
-                map_visible[i,j] = 1
+                new_map_visible[i,j] = 1
 
-    return map_visible
+    return new_map_visible
 
 
 def update_border_state(a_position, map_borders):
