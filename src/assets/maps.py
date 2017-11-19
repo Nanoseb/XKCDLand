@@ -1,4 +1,5 @@
 import os
+
 import numpy as np
 import pygame
 
@@ -14,4 +15,3 @@ map_size = (int(y/cell_size), int(x/cell_size))
 
 map_visible = np.zeros((map_size[0], map_size[1]),)  
 map_borders = ["a"]
-

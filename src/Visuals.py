@@ -1,8 +1,6 @@
-import pygame
 import numpy as np
-
+import pygame
 import src.assets.menu
-
 from src.assets.fonts import get_xkcd_font
 
 

@@ -1,5 +1,5 @@
-import matplotlib._color_data as mcd
 import matplotlib.patches as mpatch
+import matplotlib._color_data as mcd
 
 
 def torgb(strcolor):

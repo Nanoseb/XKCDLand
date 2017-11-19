@@ -1,5 +1,5 @@
-import pygame
 import numpy as np
+import pygame
 
 
 def calculate_next_position(new_key, a_position, map_size):
