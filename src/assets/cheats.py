@@ -1,0 +1,4 @@
+NO_FOG_OF_WAR = False
+INFINITE_RESOURCES = False
+SHOW_WATER = False
+

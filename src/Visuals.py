@@ -2,6 +2,8 @@ import numpy as np
 import pygame
 import src.assets.menu
 from src.assets.fonts import get_xkcd_font
+from src.assets.water import WATER_TILES
+from src.assets import cheats
 
 
 def display_initial_menu(menu):
@@ -213,10 +215,15 @@ class Display(object):
         N, M = np.shape(map_visible)
         for i in range(N):
             for j in range(M):
-                if not map_visible[i, j]:
+                if not map_visible[i, j] and not cheats.NO_FOG_OF_WAR:
                     cell_px_position = self.cell_to_px((i, j),)
                     rectangle = cell_px_position + \
                         (self.cell_size, self.cell_size)
                     pygame.draw.rect(self.game_screen, (0, 0, 0), rectangle, 0)
+                elif cheats.SHOW_WATER and (i, j) in WATER_TILES:
+                    cell_px_position = self.cell_to_px((i, j),)
+                    rectangle = cell_px_position + \
+                        (self.cell_size, self.cell_size)
+                    pygame.draw.rect(self.game_screen, (0, 0, 255), rectangle, 0)
 
         return
