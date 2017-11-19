@@ -68,6 +68,9 @@ if __name__ == "__main__":
     attack_flag = False
     clock = pygame.time.Clock()
     resource_timer = 0
+
+    mp.update_visible_map(a_position, map_visible)
+
     while game_running:
        
         key_pressed = None
