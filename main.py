@@ -15,7 +15,6 @@ import src.Visuals as vs
 pygame.init()
 pygame.key.set_repeat(500, 100)
 pygame.font.init() 
-myfont = pygame.font.SysFont('Comic Sans MS', 30)
 
 FRAME_RATE = 30
 RESOURCE_TIME_STEP = 2   # seconds per resource update
