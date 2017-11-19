@@ -46,10 +46,10 @@ class Building(object):
 
 class AllResource(object):
     def __init__(self, start_position):
-        self.ResourceDict = {'money': 1000,
-                             'food': 1000,
-                             'corners': 14,
-                             'soldiers': 10}
+        self.ResourceDict = {'money': 0,
+                             'food': 0,
+                             'corners': 4,
+                             'soldiers': 0}
         self.Buildings = [Building(available_buildings['Home'], start_position)]
 
     def calculate_next(self, current_position):
