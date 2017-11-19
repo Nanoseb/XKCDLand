@@ -30,6 +30,7 @@ class Building(object):
         self.Position = position
         self.ActiveState = True   # Buildings are active once they are built
         self.DistanceFromA = 0.
+        self.Frame = building_specs['Frame']
 
     def update_distance_from_a(self, a_position):
         self.DistanceFromA = np.sqrt((self.Position[0] - a_position[0])**2 +
@@ -135,11 +136,11 @@ class AllResource(object):
         if current_building_name is False:
             return building_messages['not_on_building']
         else:
-            next_building_name = available_buildings['current_building_name']['Next']
+            next_building_name = available_buildings[current_building_name]['Next']
             if not next_building_name:
                 return building_messages['no_upgrade_available']
             else:
-                next_building = available_buildings['next_building_name']
+                next_building = available_buildings[next_building_name]
                 if self.check_sufficient_resources(next_building) is True:
                     self.Buildings.append(Building(next_building, position))
                     return building_messages['build_success']

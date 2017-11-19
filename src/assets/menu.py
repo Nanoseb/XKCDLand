@@ -1,6 +1,6 @@
 
 soldier_menu = [{'text': "Train 10 soldiers", 'key': "+"},
-                {'text': "Kill 10 soldiers", 'key': "-"},
+                {'text': "Sack 10 soldiers", 'key': "-"},
                 {'text': "Cancel", 'key': "c"},]
 
 

@@ -6,8 +6,11 @@ import pygame
 import src.assets.menu
 from src.assets.fonts import get_xkcd_font
 from src.assets.water import WATER_TILES
+from src.assets.sprite import image_dict
+from src.assets.sprite import frame_speed
 from src.assets import cheats
 from .Rainfall import Rainfall
+
 
 
 def display_initial_menu(menu):
@@ -96,17 +99,19 @@ class Display(object):
                  map_cell_size,
                  map_background_img):
 
+        self.frame_nb = 1
         self.cell_size = cell_size
         self.window_size = window_size
         self.map_window_size = map_window_size
         self.a_position = a_position
         self.map_cell_size = map_cell_size
         self.map_background_img = map_background_img
+        self.rainfall = Rainfall(*self.window_size)
 
         self.game_screen = pygame.display.set_mode(self.window_size)
 
-    def update_display(self, a_position, all_ressources, map_visible, map_border):
-        self.rainfall = Rainfall(*self.window_size)
+    def update_display(self, a_position, all_resources, map_visible, map_border):
+        self.frame_nb += 1
 
         # update a_position
         self.a_position = a_position
@@ -115,7 +120,7 @@ class Display(object):
         self.backgound_map()
 
         # display buildings
-        for building in all_ressources.Buildings:
+        for building in all_resources.Buildings:
             self.display_building(building)
 
         # display A
@@ -131,9 +136,10 @@ class Display(object):
         self.black_unvisible(map_visible)
 
 
-
         # black background for right panel
         self.display_black_panel()
+
+#         self.display_resources(all_resources)
 
         return
 
@@ -148,6 +154,34 @@ class Display(object):
                      self.window_size[1])
         pygame.draw.rect(self.game_screen, (0, 0, 0), rectangle, 0)
         return
+
+#     def display_resources(all_resources):
+#         rectangle = (self.map_window_size[0],
+#                      0,
+#                      self.window_size[0] - self.map_window_size[0],
+#                      self.window_size[1])
+#         pygame.draw.rect(self.game_screen, (0, 0, 0), rectangle, 0)
+#         font = get_xkcd_font(self.font_size)
+#         top_y = self.menu_coordinates[1] + self.margin
+#         top_x = self.menu_coordinates[0] + self.margin
+
+#         for i, entry in enumerate(self.menu_entries):
+#             text_position = (top_x, top_y + i * (self.font_size + 5))
+#             text = font.render(
+#                 "-" + entry['key'] + '- ' + entry["text"],
+#                 True,
+#                 self.color)
+#             self.game_screen.blit(text, text_position)
+
+#         pygame.display.update()
+#         return
+
+
+#         return
+
+
+
+
 
     def cell_to_px(self, cell_position):
         """
@@ -199,38 +233,72 @@ class Display(object):
             origin_position)
         return
 
+    def get_image_name(self, prefix, nbframe):
+        if nbframe == 1:
+            return prefix + ".png"
+        else:
+            return prefix + str((int(self.frame_nb*frame_speed) % nbframe) +1) + ".png"
+
     def display_A(self):
         """
         Display A cell
         """
 
-        font = get_xkcd_font(30)
+        if self.a_position in  WATER_TILES:
+            name = self.get_image_name("AinBoat", 4)
+        else:
+            name = self.get_image_name("ASquare", 4)
+
+
+        A_square_img = image_dict[name].convert_alpha()
 
         cell_px_position, _ = self.cell_to_px(self.a_position)
-
-        text = font.render("A", True, (0, 0, 0))
-        self.game_screen.blit(text, cell_px_position)
-
-        rectangle = cell_px_position + (self.cell_size, self.cell_size)
-        pygame.draw.rect(self.game_screen, (0, 0, 0), rectangle, 2)
+        self.game_screen.blit(A_square_img, cell_px_position)
         return
+    
+    def display_battle(self, battle_position, 
+                       a_position, 
+                       all_resources,
+                       map_visible, 
+                       map_border,
+                       clock,
+                       frame_rate):
+        cell_px_position, _ = self.cell_to_px(battle_position)
+        import time
+        self.frame_nb = 0
+        for i in range(9):
+            self.frame_nb += 1
+            name = self.get_image_name("battle", 9)
+            img = image_dict[name].convert_alpha()
+
+            self.update_display(a_position, all_resources, map_visible, map_border)
+            self.game_screen.blit(img, cell_px_position)
+            pygame.display.update()
+
+            clock.tick(frame_rate)
+
 
     def display_building(self, building):
         """
         Display the building given in argument on the right cell on the screen
-        For now, only display its name and a rectangle around the cell
         """
-
-        font = get_xkcd_font(15)
-
         cell_px_position, is_on_screen = self.cell_to_px(building.Position)
 
         if is_on_screen:
-            text = font.render(building.Name, True, (0, 0, 0))
-            self.game_screen.blit(text, cell_px_position)
+            if building.Frame != 0:
+                name = self.get_image_name(building.Name, building.Frame)
+                img = image_dict[name].convert_alpha()
 
-            rectangle = cell_px_position + (self.cell_size, self.cell_size)
-            pygame.draw.rect(self.game_screen, (0, 0, 0), rectangle, 2)
+                self.game_screen.blit(img, cell_px_position)
+            else:
+
+                font = get_xkcd_font(15)
+
+                text = font.render(building.Name, True, (0, 0, 0))
+                self.game_screen.blit(text, cell_px_position)
+
+                rectangle = cell_px_position + (self.cell_size, self.cell_size)
+                pygame.draw.rect(self.game_screen, (0, 0, 0), rectangle, 2)
         return
 
 
@@ -284,7 +352,6 @@ class Display(object):
         rain_surface = pygame.Surface(self.window_size)
 
         rainfall_level = np.sin(time.time() / 60.0) ** 2
-
         for drop in self.rainfall.drops():
             pixel_value = int(255 * drop.alpha * rainfall_level)
             shifted_x = (drop.x + (self.a_position[0] * 25)) % self.window_size[0]
