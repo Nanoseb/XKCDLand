@@ -9,12 +9,12 @@ class Rainfall(object):
         self.max_x = max_x
         self.max_y = max_y
 
-        self.falling_drops = 130
+        self.falling_drops = 230
 
         self.fall_x = numpy.random.random(size=self.falling_drops) * self.max_x
         self.fall_y = -numpy.random.random(size=self.falling_drops) * self.max_y
         self.fall_velocities = numpy.random.normal(
-            loc=self.max_y * 3,
+            loc=self.max_y * 2,
             scale=self.max_y / 3,
             size=self.falling_drops,
         )
@@ -29,7 +29,7 @@ class Rainfall(object):
             yield Raindrop(
                 x=self.fall_x[n],
                 y=self.fall_y[n],
-                tail=self.max_y // 5,
+                tail=self.max_y // 13,
                 alpha=self.fall_alphas[n],
             )
 
@@ -37,7 +37,7 @@ class Rainfall(object):
             yield Raindrop(
                 x=splash_x,
                 y=splash_y,
-                tail=self.max_y // 2,
+                tail=self.max_y // 6,
                 alpha=min(
                     1.0 * np.exp(-4.0 * (self.current_time - splash_time)),
                     1.0,
