@@ -144,11 +144,33 @@ class Display(object):
         self.display_black_panel()
 
         self.display_resources(all_resources.ResourceDict)
+        
+        self.display_messages()
 
         return
 
-#     def display_message(message):
+    def display_messages(self):
+        i = 0
+        font = get_xkcd_font(self.font_size)
+        top_x = int(self.map_window_size[0]/2)
+        top_y = int(self.map_window_size[1]/2 + 30)
+        for message_dict in self.message_list:
+            if message_dict["frame"] >= 90:
+                self.message_list.remove(message_dict)
+            else:
+                i += 1
+                message_dict["frame"] += 1
+                text_position = (top_x, top_y + i * (self.font_size + 5))
+                text = font.render(message_dict["message"],
+                                   True,
+                                   (128, 128, 128))
+                self.game_screen.blit(text, text_position)
 
+
+    def add_message(self, message):
+        self.message_list.append({"frame":0, "message": message})
+        return
+        
 
     def display_black_panel(self):
         """
@@ -194,8 +216,8 @@ class Display(object):
             /!\ px coordinates and cell coordinates are inverted
         """
 
-        a_px_position = (int(self.window_size[0] / 2 - self.cell_size / 2),
-                         int(self.window_size[1] / 2 - self.cell_size / 2))
+        a_px_position = (int(self.map_window_size[0] / 2 - self.cell_size / 2),
+                         int(self.map_window_size[1] / 2 - self.cell_size / 2))
 
         cell_px_position = (
             (cell_position[1] - self.a_position[1]) * self.cell_size + a_px_position[0],
