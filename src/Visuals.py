@@ -155,6 +155,12 @@ class Display(object):
 
         return cell_px_position
 
+    def _converted_map_background_image(self):
+        if not hasattr(self, '_converted_map_background_img'):
+            self._converted_map_background_img = \
+                self.map_background_img.convert()
+        return self._converted_map_background_img
+
     def backgound_map(self):
         """
         Display the background image at the right location on the screen
@@ -164,7 +170,7 @@ class Display(object):
         origin_position = self.cell_to_px((0, 0),)
 
         self.game_screen.blit(
-            self.map_background_img.convert(),
+            self._converted_map_background_image(),
             origin_position)
         return
 
