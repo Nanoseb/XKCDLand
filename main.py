@@ -109,6 +109,7 @@ if __name__ == "__main__":
 
         if attack_flag:
             new_soldiers, border_defeated = border.attack(all_resources.ResourceDict["soldiers"])
+            display.display_battle(new_a_position, a_position, all_resources, map_visible, map_border, clock, FRAME_RATE)
             if border_defeated:
                 map_border = br.desactivate_border(border.border_id, map_border)
                 a_position = new_a_position
@@ -160,8 +161,6 @@ if __name__ == "__main__":
         display.update_display(a_position, all_resources, map_visible, map_border)
         vs.display_initial_menu(menu)
 
-        # display right panel
-        # TODO
 
 
         pygame.display.update()
