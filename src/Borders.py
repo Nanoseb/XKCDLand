@@ -22,10 +22,3 @@ class Border(object):
         return A_square_soldiers, border_defeated
 
         
-
-
-
-
-
-
-

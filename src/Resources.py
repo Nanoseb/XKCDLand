@@ -3,9 +3,18 @@ Handeling resources for xkcd land
 Keep track of all buildings and soilders
 """
 import numpy as np
-from .assets.buildings import available_buildings
-from .assets.buildings import building_messages
 
+from .assets.buildings import building_messages, available_buildings
+
+
+def get_building_keys():
+    building_keys = []
+    for house in available_buildings:
+        key = available_buildings[house]["Build Key"]
+        if key:
+            building_keys += key
+    return building_keys
+            
 
 class Building(object):
     def __init__(self, building_specs, position):

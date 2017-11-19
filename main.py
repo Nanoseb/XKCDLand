@@ -21,7 +21,8 @@ RESOURCE_TIME_STEP = 2   # seconds per resource update
 BLACK = ( 0, 0, 0)
 WHITE = ( 255, 255, 255)
 
-building_keys = ['h'] #rs.get_building_keys()
+building_keys = rs.get_building_keys()
+print(building_keys)
 
 def handle_building_menu():
     building_menu = True
@@ -29,7 +30,7 @@ def handle_building_menu():
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 building_menu = False
-                if chr(event.key) in building_keys:
+                if pygame.key.name(event.key) in building_keys:
                     return available_buildings['Home']
 
 
@@ -67,6 +68,9 @@ if __name__ == "__main__":
     attack_flag = False
     clock = pygame.time.Clock()
     resource_timer = 0
+
+    mp.update_visible_map(a_position, map_visible)
+
     while game_running:
        
         key_pressed = None
