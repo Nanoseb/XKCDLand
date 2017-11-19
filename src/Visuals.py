@@ -120,7 +120,7 @@ class Display(object):
         self.backgound_map()
 
         # display buildings
-        for building in all_ressources.Buildings:
+        for building in all_resources.Buildings:
             self.display_building(building)
 
         # display A
@@ -139,7 +139,7 @@ class Display(object):
         # black background for right panel
         self.display_black_panel()
 
-        self.display_resources(all_resources)
+#         self.display_resources(all_resources)
 
         return
 
