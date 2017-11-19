@@ -1,6 +1,8 @@
 import numpy as np
 import pygame
 
+import textwrap
+
 
 def calculate_next_position(new_key, a_position, map_size):
     """
@@ -31,16 +33,47 @@ def update_visible_map(a_position, map_visible):
     return new visibility map
     """
 
+    visibility_template = """
+      #
+     ###
+    ##x##
+     ###
+      #
+    """
+
+    visibility_mask = [
+        [
+            (index, character)
+            for index, character in enumerate(line)
+            if character != ' '
+        ]
+        for line in textwrap.dedent(visibility_template).splitlines()
+        if line.strip()
+    ]
+
+    for line_number, line in enumerate(visibility_mask):
+        for column_number, character in line:
+            if character == 'x':
+                template_offset = (-line_number, -column_number)
+                break
+
     new_map_visible = np.copy(map_visible)
 
-    a = a_position
-    N, M = np.shape(new_map_visible)
-    for i in range(N):
-        for j in range(M):
-            if (i == a[0] and j >= a[1]-2 and  j <= a[1]+2) or \
-                    (j == a[1] and i >= a[0]-2 and  i <= a[0]+2) or \
-                    (i >= a[0]-1 and i <= a[0]+1 and  j >= a[1]-1 and j <= a[1]+1):
-                new_map_visible[i,j] = 1
+    for line_number, line in enumerate(visibility_mask):
+        for column_number, _ in line:
+            new_x = a_position[0] + template_offset[0] + line_number
+            new_y = a_position[1] + template_offset[1] + column_number
+
+            if new_x <= 0:
+                continue
+            if new_y <= 0:
+                continue
+            if new_x >= new_map_visible.shape[0]:
+                continue
+            if new_y >= new_map_visible.shape[1]:
+                continue
+
+            new_map_visible[new_x, new_y] = 1
 
     return new_map_visible
 
