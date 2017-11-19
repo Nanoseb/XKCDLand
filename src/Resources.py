@@ -5,6 +5,7 @@ Keep track of all buildings and soilders
 import numpy as np
 
 from .assets.buildings import building_messages, available_buildings
+from .assets import cheats
 
 
 def get_building_keys():
@@ -113,7 +114,10 @@ class AllResource(object):
         if self.check_for_existing_building(position) is not False:
             return building_messages['on_existing_building']
         else:
-            if self.check_sufficient_resources(building_specs) is True:
+            if (
+                self.check_sufficient_resources(building_specs) is True or
+                cheats.INFINITE_RESOURCES
+            ):
                 self.Buildings.append(Building(building_specs, position))
                 return building_messages['build_success']
             else:

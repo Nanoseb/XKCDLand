@@ -89,7 +89,12 @@ if __name__ == "__main__":
         #keys = pygame.key.get_pressed()
         # movement:
         # calculate next position
-        a_position, has_moved = mp.calculate_next_position(key_pressed, a_position, map_size)
+        a_position, has_moved = mp.calculate_next_position(
+            key_pressed,
+            a_position,
+            map_size,
+            resources=all_resources,
+        )
         if has_moved:
             #   check if space needs to be made visible in map_visible
             map_visible = mp.update_visible_map(a_position, map_visible)
