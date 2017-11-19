@@ -1,5 +1,6 @@
 from __future__ import division
 
+import time
 import numpy as np
 import pygame
 import src.assets.menu
@@ -260,8 +261,10 @@ class Display(object):
 
         rain_surface = pygame.Surface(self.window_size)
 
+        rainfall_level = np.sin(time.time() / 60.0) ** 2
+
         for drop in self.rainfall.drops():
-            pixel_value = int(255 * drop.alpha)
+            pixel_value = int(255 * drop.alpha * rainfall_level)
             shifted_x = (drop.x + (self.a_position[0] * 25)) % self.window_size[0]
             pygame.draw.line(
                 rain_surface,
