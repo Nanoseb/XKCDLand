@@ -113,4 +113,5 @@ building_messages = {
     'build_success': "A new building was built",
     'no_resource': "Not sufficient resources!",
     'upgrade_success': "Building was successfully upgraded",
-    'not_on_building': "Before upgrading, you have to first build!"}
+    'not_on_building': "Before upgrading, you have to first build!",
+    'no_upgrade_available': "This building is already awesome, no need to make it better?!"}
