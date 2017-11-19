@@ -21,7 +21,8 @@ RESOURCE_TIME_STEP = 2   # seconds per resource update
 BLACK = ( 0, 0, 0)
 WHITE = ( 255, 255, 255)
 
-building_keys = ['h'] #rs.get_building_keys()
+building_keys = rs.get_building_keys()
+print(building_keys)
 
 def handle_building_menu():
     building_menu = True

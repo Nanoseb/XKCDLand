@@ -7,6 +7,15 @@ from .assets.buildings import available_buildings
 from .assets.buildings import building_messages
 
 
+def get_building_keys():
+    building_keys = []
+    for house in available_buildings:
+        key = available_buildings[house]["Build Key"]
+        if key:
+            building_keys += key
+    return building_keys
+            
+
 class Building(object):
     def __init__(self, building_specs, position):
         """
