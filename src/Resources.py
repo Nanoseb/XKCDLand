@@ -14,7 +14,7 @@ def get_building_keys():
         if key:
             building_keys += key
     return building_keys
-            
+
 
 class Building(object):
     def __init__(self, building_specs, position):
@@ -41,7 +41,7 @@ class Building(object):
             state = state & (available[key] + self.InOut[key] >= 0)
         state = state & (available['corners'] >= self.MinCorners)
         self.ActiveState = state
-        
+
 class AllResource(object):
     def __init__(self, start_position):
         self.ResourceDict = {'money': 0,
@@ -62,7 +62,7 @@ class AllResource(object):
             if house.ActiveState is True:
                 self.update_resources(house)
                 next_corners = max(next_corners, house.InOut['corners'])
-        self.Buildings.sort(key=lambda x: x.DistanceFromA) 
+        self.Buildings.sort(key=lambda x: x.DistanceFromA)
         self.ResourceDict['corners'] = next_corners
         print(self.ResourceDict)
 
@@ -77,18 +77,18 @@ class AllResource(object):
         sufficient_soldier_pay = ((self.ResourceDict['soldiers'] <= self.ResourceDict['money']) &
                                   (self.ResourceDict['soldiers'] <= self.ResourceDict['food']))
         if not sufficient_soldier_pay:
-            self.ResourceDict['soldiers'] = min(self.ResourceDict['money'], 
+            self.ResourceDict['soldiers'] = min(self.ResourceDict['money'],
                                                 self.ResourceDict['food'])
         self.ResourceDict['money'] -= self.ResourceDict['soldiers']
         self.ResourceDict['money'] -= self.ResourceDict['soldiers']
-        
+
 
     def check_sufficient_resources(self, specifications):
         sufficient_resources = True
         for key in specifications['Initial Cost'].keys():
             sufficient_resources &= (specifications['Initial Cost'][key] <= self.ResourceDict[key])
         sufficient_resources &= (specifications['Min Corners'] <= self.ResourceDict['corners'])
-                               
+
         return sufficient_resources
 
     def check_for_existing_building(self, position):
