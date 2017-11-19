@@ -3,6 +3,8 @@ import numpy as np
 
 import src.assets.menu
 
+from src.assets.fonts import get_xkcd_font
+
 def display_initial_menu(menu):
     menu.menu_entries = src.assets.menu.initial_menu 
     menu.display_menu()
@@ -57,7 +59,7 @@ class Menu(object):
     
     def display_menu(self):
 
-        font = pygame.font.SysFont('Comic Sans MS', self.font_size)
+        font = get_xkcd_font(self.font_size)
         top_y = self.menu_coordinates[1] + self.margin
         top_x = self.menu_coordinates[0] + self.margin
 
@@ -172,7 +174,7 @@ class Display(object):
         Display A cell
         """
         
-        font = pygame.font.SysFont('Comic Sans MS', 30)
+        font = get_xkcd_font(30)
 
         cell_px_position = self.cell_to_px(self.a_position)
 
@@ -193,7 +195,7 @@ class Display(object):
         For now, only display its name and a rectangle around the cell
         """
         
-        font = pygame.font.SysFont('Comic Sans MS', 15)
+        font = get_xkcd_font(15)
 
         cell_px_position = self.cell_to_px(building.Position)
 
