@@ -4,7 +4,7 @@ from ..Borders import Border_cell
 import numpy as np
 
 
-force_coeficient = 0.2
+force_coeficient = 0.1
 
 def is_border(colour):
     return colour[1] < 128

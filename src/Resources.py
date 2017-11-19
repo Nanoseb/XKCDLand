@@ -8,6 +8,7 @@ from src.assets.water import WATER_TILES
 from .assets.buildings import building_messages, available_buildings
 from .assets import cheats
 
+SOLDIER_COST = 250
 
 def get_building_keys():
     building_keys = {}
@@ -136,7 +137,6 @@ class AllResource(object):
         """
         print("Debug: upgrading building")
         current_building_name = self.check_for_existing_building(position) 
-        print(current_building_name)
         if current_building_name is False:
             return building_messages['not_on_building']
         else:
@@ -150,3 +150,20 @@ class AllResource(object):
                     return building_messages['build_success']
                 else:
                     return building_messages['no_resource']
+
+    def add_soldier(self, new_soldier):
+        """
+        Adds or removes soldiers after checking if there are enough resources or soldiers
+        """
+        soldier_msg = "Updating soldiers"
+        if new_soldier < 0:
+            if self.ResourceDict['soldiers'] > 0:
+                self.ResourceDict['soldiers'] -= 1
+        if new_soldier > 0:
+            if self.ResourceDict['money'] > SOLDIER_COST:
+                self.ResourceDict['money'] -= SOLDIER_COST
+                self.ResourceDict['soldiers'] += 1
+            else:
+                soldier_msg = "Soldiers training costs " + str(SOLDIER_COST) + " Flatmoney..."
+        return soldier_msg
+
