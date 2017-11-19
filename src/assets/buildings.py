@@ -33,7 +33,7 @@ available_buildings = {
                                        'money': 3},
                    'Initial Cost': {'food': 30,
                                     'money': 2},
-                   'Min Corners': 4,
+                   'Min Corners': 7,
                    'Build Key': None,
                    'Next': None},
 
@@ -47,7 +47,7 @@ available_buildings = {
     "Factory": {'Name': "Factory",
                 'Resource Change': {'food': 5},
                 'Initial Cost': {'money': 20},
-                'Min Corners': 5,
+                'Min Corners': 8,
                 'Build Key': None,
                 'Next': None},
 
@@ -65,7 +65,7 @@ available_buildings = {
                                    'money': -1,
                                    'corners': 6},
                'Initial Cost': {'money': 5},
-               'Min Corners': 4,
+               'Min Corners': 5,
                'Build Key': None,
                'Next': "Hospital"},
 
@@ -74,7 +74,7 @@ available_buildings = {
                                      'money': -1,
                                      'corners': 8},
                  'Initial Cost': {'money': 5},
-                 'Min Corners': 4,
+                 'Min Corners': 7,
                  'Build Key': None,
                  'Next': "Priesthood"},
 
@@ -83,7 +83,7 @@ available_buildings = {
                                        'money': -1,
                                        'corners': 10},
                    'Initial Cost': {'money': 5},
-                   'Min Corners': 4,
+                   'Min Corners': 8,
                    'Build Key': None,
                    'Next': None},
 
