@@ -6,7 +6,7 @@ import textwrap
 from src.assets.water import WATER_TILES
 
 
-def calculate_next_position(new_key, a_position, map_size):
+def calculate_next_position(new_key, a_position, map_size, resources):
     """
     update a position based on the key press
     return new position tuple and a boolean expressing if a has moved
@@ -29,8 +29,9 @@ def calculate_next_position(new_key, a_position, map_size):
         tuple(new_position) in WATER_TILES and
         tuple(a_position) not in WATER_TILES
     ):
-        # Block movement from land to water
-        return a_position, False
+        # Block movement from land to water, unless there is a pontoon
+        if resources.check_for_existing_building(a_position) != 'Pontoon':
+            return a_position, False
 
     return tuple(new_position), has_moved
 
