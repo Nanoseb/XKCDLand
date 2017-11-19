@@ -54,7 +54,6 @@ class Rainfall(object):
             numpy.random.random(size=self.falling_drops) * self.max_x
         )[reset_mask]
 
-        # New splashes
         for _ in range(numpy.random.poisson(1.4 * dt)):
             self.splashes.append((
                 numpy.random.random() * self.max_x,

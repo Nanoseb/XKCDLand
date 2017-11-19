@@ -109,6 +109,7 @@ class Display(object):
         self.rainfall = Rainfall(*self.window_size)
 
         self.game_screen = pygame.display.set_mode(self.window_size)
+        self.font_size = 20
 
     def update_display(self, a_position, all_resources, map_visible, map_border):
         self.frame_nb += 1
@@ -139,7 +140,7 @@ class Display(object):
         # black background for right panel
         self.display_black_panel()
 
-#         self.display_resources(all_resources)
+        self.display_resources(all_resources.ResourceDict)
 
         return
 
@@ -155,30 +156,28 @@ class Display(object):
         pygame.draw.rect(self.game_screen, (0, 0, 0), rectangle, 0)
         return
 
-#     def display_resources(all_resources):
-#         rectangle = (self.map_window_size[0],
-#                      0,
-#                      self.window_size[0] - self.map_window_size[0],
-#                      self.window_size[1])
-#         pygame.draw.rect(self.game_screen, (0, 0, 0), rectangle, 0)
-#         font = get_xkcd_font(self.font_size)
-#         top_y = self.menu_coordinates[1] + self.margin
-#         top_x = self.menu_coordinates[0] + self.margin
 
-#         for i, entry in enumerate(self.menu_entries):
-#             text_position = (top_x, top_y + i * (self.font_size + 5))
-#             text = font.render(
-#                 "-" + entry['key'] + '- ' + entry["text"],
-#                 True,
-#                 self.color)
-#             self.game_screen.blit(text, text_position)
+    def display_resources(self, all_resources):
 
-#         pygame.display.update()
-#         return
+        font = get_xkcd_font(self.font_size)
+        top_y = 25
+        top_x = self.map_window_size[0] + 5
+        
+        list_text = ["Corners:", "   " + str(all_resources['corners']),
+                     "Money:",   "   " + str(all_resources['money']),
+                     "Food:",    "   " + str(all_resources['food']),
+                     "Soldiers:","   " + str(all_resources['soldiers'])]
 
 
-#         return
+        for i, text in enumerate(list_text):
+            text_position = (top_x, top_y + i * (self.font_size + 5))
+            text = font.render(text,
+                               True,
+                               (255,255,255))
+            self.game_screen.blit(text, text_position)
 
+        pygame.display.update()
+        return
 
 
 
