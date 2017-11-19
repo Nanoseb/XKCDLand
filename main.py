@@ -109,7 +109,7 @@ if __name__ == "__main__":
         # soldier action:
         #   add/upgrade building in buildings_list 
         if key_pressed == pygame.K_s:
-            vs.display_soldier_menu(available_buildings, menu)
+            vs.display_soldier_menu(menu)
             # TODO do something with the key presses
 
         # calculate next time step resources

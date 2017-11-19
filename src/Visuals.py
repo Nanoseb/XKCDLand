@@ -17,7 +17,6 @@ def display_building_menu(available_building, menu):
             menu.add_entry(text, building['Build Key'])
     menu.add_entry("Cancel", "c")
     menu.display_menu()
-    pygame.display.update()
     return
 
 def display_soldier_menu(menu):
@@ -38,7 +37,7 @@ class Menu(object):
         self.menu_coordinates = (map_window_size[0],
                                  int(window_size[1]/2),
                                  window_size[0] - map_window_size[0],
-                                 window_size[1] - map_window_size[1]) 
+                                 int(window_size[1]/2))
         self.font_size = font_size
         self.color = color
         self.margin = margin
@@ -47,7 +46,7 @@ class Menu(object):
 
     def clear_menu(self):
         rectangle = self.menu_coordinates
-        pygame.draw.rect(self.game_screen, (0,0,0), rectangle, 0)
+        pygame.draw.rect(self.game_screen, (0, 0, 0), rectangle, 0)
         self.menu_entries = []
         return
 
@@ -67,6 +66,7 @@ class Menu(object):
             text = font.render("(" + entry['key'] + ') ' + entry["text"], True, self.color)
             self.game_screen.blit(text, text_position)
 
+        pygame.display.update()
         return
 
 
