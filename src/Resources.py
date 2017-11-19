@@ -118,3 +118,26 @@ class AllResource(object):
                 return building_messages['build_success']
             else:
                 return building_messages['no_resource']
+
+    def upgrade_building(self, position):
+        """
+        checks if there is a building, and if it can be upgraded
+        checks if a building can be built; if so, a building is added.
+        Returns screen message depending on building success
+        """
+        print("Debug: upgrading building")
+        current_building_name = self.check_for_existing_building(position) 
+        print(current_building_name)
+        if current_building_name is False:
+            return building_messages['not_on_building']
+        else:
+            next_building_name = available_buildings['current_building_name']['Next']
+            if not next_building_name:
+                return building_messages['no_upgrade_available']
+            else:
+                next_building = available_buildings['next_building_name']
+                if self.check_sufficient_resources(next_building) is True:
+                    self.Buildings.append(Building(next_building, position))
+                    return building_messages['build_success']
+                else:
+                    return building_messages['no_resource']

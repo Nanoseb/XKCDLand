@@ -71,7 +71,7 @@ if __name__ == "__main__":
     clock = pygame.time.Clock()
     resource_timer = 0
 
-    mp.update_visible_map(a_position, map_visible)
+    map_visible = mp.update_visible_map(a_position, map_visible)
 
     while game_running:
 
@@ -103,7 +103,7 @@ if __name__ == "__main__":
             pass
 
         # building action:
-        #   add/upgrade building in buildings_list
+        # add building in buildings_list
         if key_pressed == pygame.K_b:
             vs.display_building_menu(available_buildings, menu)
             new_building = handle_building_menu()
@@ -111,6 +111,11 @@ if __name__ == "__main__":
                 output_text = all_resources.add_building(a_position, new_building)
                 print(new_building)
                 print(output_text)
+
+        # add building in buildings_list
+        if key_pressed == pygame.K_u:
+            output_text = all_resources.upgrade_building(a_position)
+            print(output_text)
 
         # soldier action:
         #   add/upgrade building in buildings_list
