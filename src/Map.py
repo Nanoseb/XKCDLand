@@ -1,9 +1,9 @@
 import pygame
 import numpy as np
-    
+
 
 def calculate_next_position(new_key, a_position, map_size):
-    """ 
+    """
     update a position based on the key press
     return new position tuple and a boolean expressing if a has moved
     """
@@ -40,6 +40,7 @@ def update_visible_map(a_position, map_visible):
                 map_visible[i,j] = 1
 
     return map_visible
+
 
 def update_border_state(a_position, map_borders):
     """
