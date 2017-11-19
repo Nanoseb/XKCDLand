@@ -72,7 +72,7 @@ if __name__ == "__main__":
     clock = pygame.time.Clock()
     resource_timer = 0
 
-    map_visible = mp.update_visible_map(a_position, map_visible)
+    map_visible = mp.update_visible_map(a_position, map_visible, initial_reveal=True)
 
     while game_running:
 
