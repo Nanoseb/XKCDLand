@@ -33,7 +33,7 @@ available_buildings = {
 
     "Restaurant": {'Name': "Restaurant",
                    'Resource Change': {'food': -5,
-                                       'money': 3},
+                                       'money': 15},
                    'Initial Cost': {'food': 30,
                                     'money': 2},
                    'Min Corners': 7,
@@ -42,7 +42,7 @@ available_buildings = {
                    'Frame': 0},
 
     "Farm": {'Name': "Farm",
-             'Resource Change': {'food': 1},
+             'Resource Change': {'food': 10},
              'Initial Cost': {'money': 2},
              'Min Corners': 4,
              'Build Key': 'f',
@@ -50,8 +50,8 @@ available_buildings = {
              'Frame': 0},
 
     "Factory": {'Name': "Factory",
-                'Resource Change': {'food': 5},
-                'Initial Cost': {'money': 20},
+                'Resource Change': {'food': 100},
+                'Initial Cost': {'money': 25},
                 'Min Corners': 8,
                 'Build Key': None,
                 'Next': None,
@@ -59,7 +59,7 @@ available_buildings = {
 
     "School": {'Name': "School",
                'Resource Change': {'food': -1,
-                                   'money': -1,
+                                   'money': 0,
                                    'corners': 5},
                'Initial Cost': {'money': 5},
                'Min Corners': 4,
@@ -68,8 +68,8 @@ available_buildings = {
                'Frame': 12},
 
     "Church": {'Name': "Church",
-               'Resource Change': {'food': -1,
-                                   'money': -1,
+               'Resource Change': {'food': 0,
+                                   'money': -2,
                                    'corners': 6},
                'Initial Cost': {'money': 5},
                'Min Corners': 5,
@@ -79,7 +79,7 @@ available_buildings = {
 
     "Hospital": {'Name': "Hospital",
                  'Resource Change': {'food': -1,
-                                     'money': -1,
+                                     'money': -2,
                                      'corners': 8},
                  'Initial Cost': {'money': 5},
                  'Min Corners': 7,
@@ -89,7 +89,7 @@ available_buildings = {
 
     "Priesthood": {'Name': "Priesthood",
                    'Resource Change': {'food': -1,
-                                       'money': -1,
+                                       'money': -15,
                                        'corners': 10},
                    'Initial Cost': {'money': 5},
                    'Min Corners': 8,
@@ -98,8 +98,8 @@ available_buildings = {
                    'Frame': 0},
 
     "Pontoon": {'Name': "Pontoon",
-                'Resource Change': {'food': -1,
-                                    'money': -1,
+                'Resource Change': {'food': 0,
+                                    'money': 0,
                                     'corners': 7},
                 'Initial Cost': {'money': 5},
                 'Min Corners': 6,
