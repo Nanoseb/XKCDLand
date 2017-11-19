@@ -13,7 +13,7 @@ def display_initial_menu(menu):
 def display_building_menu(available_building, menu):
     menu.clear_menu()
 
-    for _, building in available_building.iteritems():
+    for _, building in available_building.items():
         if building['Build Key']:
             text = building["Name"]
             menu.add_entry(text, building['Build Key'])
