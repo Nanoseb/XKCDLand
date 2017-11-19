@@ -8,11 +8,11 @@ from .assets.buildings import building_messages, available_buildings
 
 
 def get_building_keys():
-    building_keys = []
+    building_keys = {}
     for house in available_buildings:
         key = available_buildings[house]["Build Key"]
         if key:
-            building_keys += key
+            building_keys[key] = available_buildings[house]["Name"]
     return building_keys
 
 
@@ -61,7 +61,8 @@ class AllResource(object):
             house.check_activity(self.ResourceDict)
             if house.ActiveState is True:
                 self.update_resources(house)
-                next_corners = max(next_corners, house.InOut['corners'])
+                if 'corners' in house.InOut:
+                    next_corners = max(next_corners, house.InOut['corners'])
         self.Buildings.sort(key=lambda x: x.DistanceFromA)
         self.ResourceDict['corners'] = next_corners
         print(self.ResourceDict)
@@ -85,6 +86,7 @@ class AllResource(object):
 
     def check_sufficient_resources(self, specifications):
         sufficient_resources = True
+        print(specifications)
         for key in specifications['Initial Cost'].keys():
             sufficient_resources &= (specifications['Initial Cost'][key] <= self.ResourceDict[key])
         sufficient_resources &= (specifications['Min Corners'] <= self.ResourceDict['corners'])

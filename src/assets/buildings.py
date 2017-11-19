@@ -95,6 +95,16 @@ available_buildings = {
                 'Min Corners': 6,
                 'Build Key': 'p',
                 'Next': None},
+
+    "Barracks": {'Name': "Barracks",
+                 'Resource Change': {'food': -10,
+                                     'money': -2,
+                                     'corners': 4},
+                 'Initial Cost': {'money': 5},
+                 'Min Corners': 5,
+                 'Build Key': 'b',
+                 'Next': None},
+
 }
 
 
