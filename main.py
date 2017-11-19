@@ -112,12 +112,11 @@ if __name__ == "__main__":
             if border_defeated:
                 map_border = br.desactivate_border(border.border_id, map_border)
                 a_position = new_a_position
-
                 print("you won")
             else:
                 has_moved = False
                 print("you lost " + str(all_resources.ResourceDict["soldiers"] - new_soldiers))
-                all_resources.ResourceDict["soldiers"] = new_soldiers
+                all_resources.ResourceDict["soldiers"] = max(0,new_soldiers)
         else:
             a_position = new_a_position
             border = None

@@ -3,6 +3,9 @@ import os.path
 from ..Borders import Border_cell
 import numpy as np
 
+
+force_coeficient = 0.2
+
 def is_border(colour):
     return colour[1] < 128
 
@@ -21,11 +24,12 @@ def load_border_map():
         for y in range(f.size[1]):
             for x in range(f.size[0]):
                 if is_border(accessor[x, y]):
-                    border_map[y,x] = Border_cell(accessor[x,y][0])
+                    border_map[y,x] = Border_cell(accessor[x,y][0], force_coeficient)
                 else:
-                    border_map[y,x] = Border_cell(0)
+                    border_map[y,x] = Border_cell(0, force_coeficient)
 
     return border_map
 
 
 border_map = load_border_map()
+
