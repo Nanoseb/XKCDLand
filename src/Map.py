@@ -59,11 +59,11 @@ def update_visible_map(a_position, map_visible, initial_reveal=False):
         """
     else:
         visibility_template = """
-          #
          ###
+        #####
         ##x##
+        #####
          ###
-          #
         """
 
     visibility_mask = [
