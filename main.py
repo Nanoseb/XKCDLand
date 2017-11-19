@@ -29,7 +29,7 @@ def handle_building_menu():
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 building_menu = False
-                if chr(event.key) in building_keys:
+                if pygame.key.name(event.key) in building_keys:
                     return available_buildings['Home']
 
 
