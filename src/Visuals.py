@@ -105,9 +105,8 @@ class Display(object):
 
         self.game_screen = pygame.display.set_mode(self.window_size)
 
+    def update_display(self, a_position, all_ressources, map_visible, map_border):
         self.rainfall = Rainfall(*self.window_size)
-
-    def update_display(self, a_position, all_ressources, map_visible):
 
         # update a_position
         self.a_position = a_position
@@ -122,11 +121,16 @@ class Display(object):
         # display A
         self.display_A()
 
+        # display border map
+        self.display_borders(map_border)
+
         # rain
         self.display_rain()
 
         # display black when not visible
         self.black_unvisible(map_visible)
+
+
 
         # black background for right panel
         self.display_black_panel()
@@ -228,6 +232,24 @@ class Display(object):
             rectangle = cell_px_position + (self.cell_size, self.cell_size)
             pygame.draw.rect(self.game_screen, (0, 0, 0), rectangle, 2)
         return
+
+
+    def display_borders(self, map_border):
+        s = pygame.Surface(self.window_size)
+        s.set_alpha(60)
+        (min_i, max_i, min_j, max_j) = self.get_visible_cells()
+        for i in range(min_i, max_i+1):
+            for j in range(min_j, max_j + 1):
+                if map_border[i,j].active:
+                    cell_px_position, is_on_screen = self.cell_to_px((i, j),)
+                    if is_on_screen:
+                        s = pygame.Surface((self.cell_size, self.cell_size))  # the size of your rect
+                        s.set_alpha(58) 
+                        s.fill((255,0,0))
+                        self.game_screen.blit(s,cell_px_position)   
+
+        return
+
 
 
 
