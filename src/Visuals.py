@@ -1,9 +1,13 @@
+from __future__ import division
+
+import time
 import numpy as np
 import pygame
 import src.assets.menu
 from src.assets.fonts import get_xkcd_font
 from src.assets.water import WATER_TILES
 from src.assets import cheats
+from .Rainfall import Rainfall
 
 
 def display_initial_menu(menu):
@@ -102,6 +106,7 @@ class Display(object):
         self.game_screen = pygame.display.set_mode(self.window_size)
 
     def update_display(self, a_position, all_ressources, map_visible, map_border):
+        self.rainfall = Rainfall(*self.window_size)
 
         # update a_position
         self.a_position = a_position
@@ -118,6 +123,9 @@ class Display(object):
 
         # display border map
         self.display_borders(map_border)
+
+        # rain
+        self.display_rain()
 
         # display black when not visible
         self.black_unvisible(map_visible)
@@ -269,3 +277,28 @@ class Display(object):
                         pygame.draw.rect(self.game_screen, (0, 0, 255), rectangle, 0)
 
         return
+
+    def display_rain(self):
+        """Rainfall"""
+
+        rain_surface = pygame.Surface(self.window_size)
+
+        rainfall_level = np.sin(time.time() / 60.0) ** 2
+
+        for drop in self.rainfall.drops():
+            pixel_value = int(255 * drop.alpha * rainfall_level)
+            shifted_x = (drop.x + (self.a_position[0] * 25)) % self.window_size[0]
+            pygame.draw.line(
+                rain_surface,
+                (pixel_value, pixel_value, pixel_value),
+                (drop.x, drop.y - drop.tail),
+                (drop.x, drop.y),
+            )
+
+        self.game_screen.blit(
+            rain_surface,
+            (0, 0, self.window_size[0], self.window_size[1]),
+            special_flags=pygame.BLEND_SUB,
+        )
+
+        self.rainfall.update(1 / 30)

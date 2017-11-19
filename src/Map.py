@@ -36,20 +36,35 @@ def calculate_next_position(new_key, a_position, map_size, resources):
     return tuple(new_position), has_moved
 
 
-def update_visible_map(a_position, map_visible):
+def update_visible_map(a_position, map_visible, initial_reveal=False):
     """
     based on a position, check if new area has become visible,
     and if so, update the visibility map
     return new visibility map
     """
 
-    visibility_template = """
-      #
-     ###
-    ##x##
-     ###
-      #
-    """
+    if initial_reveal:
+        visibility_template = """
+            ###
+           #####
+          #######
+         #########
+        ###########
+        #####x#####
+        ###########
+         #########
+          #######
+           #####
+            ###
+        """
+    else:
+        visibility_template = """
+          #
+         ###
+        ##x##
+         ###
+          #
+        """
 
     visibility_mask = [
         [
