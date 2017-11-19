@@ -39,18 +39,20 @@ def handle_building_menu():
 
 def handle_soldier_menu():
     soldier_menu = True
-    new_soldiers = 0
-    while solder_menu is True:
+    while soldier_menu is True:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 new_key = pygame.key.name(event.key)
+                soldier_msg = None
+                print(new_key)
                 if new_key == 'c':
-                    solder_menu = False
-                if new_key == '-':
-                    new_soldiers = -1
-                if new_key == '+':
-                    print("TODO: Add new soldier")
-    return new_soldiers
+                    soldier_menu = False
+                if new_key == 'p':
+                    soldier_msg = all_resources.add_soldier(-1)
+                if new_key == 'm':
+                    soldier_msg = all_resources.add_soldier(+1)
+                if soldier_msg:
+                    print(soldier_msg)
 
 if __name__ == "__main__":
     sprites_list = pygame.sprite.Group()
@@ -164,9 +166,6 @@ if __name__ == "__main__":
         if key_pressed == pygame.K_s:
             vs.display_soldier_menu(menu)
             new_soldiers = handle_soldier_menu()
-            all_resources.ResourceDict['soldiers'] += new_soldiers
-            all_resources.ResourceDict['soldiers'] = max(0, 
-                                                         all_resources.ResourceDict['soldiers'])
 
         # calculate next time step resources
         if resource_timer > (FRAME_RATE * RESOURCE_TIME_STEP):

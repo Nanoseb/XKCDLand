@@ -1,6 +1,6 @@
 
-soldier_menu = [{'text': "Train 10 soldiers", 'key': "+"},
-                {'text': "Sack 10 soldiers", 'key': "-"},
+soldier_menu = [{'text': "Train 1 soldier", 'key': "p"},
+                {'text': "Sack 1 soldier", 'key': "m"},
                 {'text': "Cancel", 'key': "c"},]
 
 
