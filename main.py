@@ -6,7 +6,6 @@ import pygame
 import random
 import numpy as np
 from src.assets.buildings import available_buildings
-from src.assets.buildings import building_messages
 import src.assets.maps
 import src.assets.display
 import src.Map as mp
