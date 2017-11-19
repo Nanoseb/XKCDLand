@@ -85,7 +85,7 @@ available_buildings = {
                  'Min Corners': 7,
                  'Build Key': None,
                  'Next': "Priesthood",
-                 'Frame': 0},
+                 'Frame': 12},
 
     "Priesthood": {'Name': "Priesthood",
                    'Resource Change': {'food': -1,
