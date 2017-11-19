@@ -122,14 +122,14 @@ class Display(object):
         # display A
         self.display_A()
 
+        # rain
+        self.display_rain()
+
         # display black when not visible
         self.black_unvisible(map_visible)
 
         # black background for right panel
         self.display_black_panel()
-
-        # rain
-        self.display_rain()
 
         return
 
