@@ -14,6 +14,7 @@ from .Rainfall import Rainfall
 
 
 def display_initial_menu(menu):
+    menu.clear_menu()
     menu.menu_entries = src.assets.menu.initial_menu
     menu.display_menu()
     return
@@ -32,6 +33,7 @@ def display_building_menu(available_building, menu):
 
 
 def display_soldier_menu(menu):
+    menu.clear_menu()
     menu.menu_entries = src.assets.menu.soldier_menu
     menu.display_menu()
     return
@@ -107,6 +109,7 @@ class Display(object):
         self.map_cell_size = map_cell_size
         self.map_background_img = map_background_img
         self.rainfall = Rainfall(*self.window_size)
+        self.message_list = []
 
         self.game_screen = pygame.display.set_mode(self.window_size)
         self.font_size = 20
@@ -144,6 +147,9 @@ class Display(object):
 
         return
 
+#     def display_message(message):
+
+
     def display_black_panel(self):
         """
         Display the right panel black background
@@ -178,7 +184,6 @@ class Display(object):
 
         pygame.display.update()
         return
-
 
 
 
