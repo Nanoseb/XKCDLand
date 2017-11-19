@@ -3,6 +3,8 @@ import pygame
 
 import textwrap
 
+from src.assets.water import WATER_TILES
+
 
 def calculate_next_position(new_key, a_position, map_size):
     """
@@ -22,6 +24,13 @@ def calculate_next_position(new_key, a_position, map_size):
     elif new_key == pygame.K_DOWN and a_position[0] != map_size[0]:
         new_position[0] += 1
     has_moved = (new_position != list(a_position))
+
+    if (
+        tuple(new_position) in WATER_TILES and
+        tuple(a_position) not in WATER_TILES
+    ):
+        # Block movement from land to water
+        return a_position, False
 
     return tuple(new_position), has_moved
 
