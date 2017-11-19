@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
     # loading map file
     map_visible = src.assets.maps.map_visible
-    map_size = src.assets.maps.map_size
+    map_cell_size = src.assets.maps.map_cell_size
     map_borders = src.assets.maps.map_borders
     map_background_img = src.assets.maps.map_background_img
     cell_size = src.assets.maps.cell_size
@@ -57,6 +57,7 @@ if __name__ == "__main__":
                          cell_size,
                          game_window_size,
                          map_window_size,
+                         map_cell_size,
                          map_background_img)
     menu = vs.Menu(game_window_size,
                    map_window_size,
@@ -92,7 +93,7 @@ if __name__ == "__main__":
         a_position, has_moved = mp.calculate_next_position(
             key_pressed,
             a_position,
-            map_size,
+            map_cell_size,
             resources=all_resources,
         )
         if has_moved:

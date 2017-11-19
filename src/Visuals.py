@@ -89,12 +89,14 @@ class Display(object):
                  cell_size,
                  window_size,
                  map_window_size,
+                 map_cell_size,
                  map_background_img):
 
         self.cell_size = cell_size
         self.window_size = window_size
         self.map_window_size = map_window_size
         self.a_position = a_position
+        self.map_cell_size = map_cell_size
         self.map_background_img = map_background_img
 
         self.game_screen = pygame.display.set_mode(self.window_size)
@@ -147,13 +149,23 @@ class Display(object):
         cell_px_position = (
             (cell_position[1] - self.a_position[1]) * self.cell_size + a_px_position[0],
             (cell_position[0] - self.a_position[0]) * self.cell_size + a_px_position[1])
-    #     if cell_px_position[0] < -cell_size or \
-    #        cell_px_position[1] < -cell_size or \
-    #        cell_px_position[0] > window_size[0] or \
-    #        cell_px_position[1] > window_size[1]:
-    #         return (None, None)
+        is_on_screen = not (cell_px_position[0] < -self.cell_size or \
+                            cell_px_position[1] < -self.cell_size or \
+                            cell_px_position[0] > self.window_size[0] or \
+                            cell_px_position[1] > self.window_size[1])
 
-        return cell_px_position
+        return cell_px_position, is_on_screen
+
+    def get_visible_cells(self):
+        I = int(self.window_size[1] / self.cell_size) + 2
+        J = int(self.window_size[0] / self.cell_size) + 2
+        min_i = max(0,-int(I/2) + self.a_position[0])
+        min_j = max(0,-int(J/2) + self.a_position[1])
+        max_i = min(self.map_cell_size[0], int(I/2) + self.a_position[0])
+        max_j = min(self.map_cell_size[1], int(J/2) + self.a_position[1])
+
+        return (min_i, max_i, min_j, max_j)
+
 
     def _converted_map_background_image(self):
         if not hasattr(self, '_converted_map_background_img'):
@@ -167,7 +179,7 @@ class Display(object):
         """
         self.game_screen.fill((0, 0, 0))
 
-        origin_position = self.cell_to_px((0, 0),)
+        origin_position, _ = self.cell_to_px((0, 0),)
 
         self.game_screen.blit(
             self._converted_map_background_image(),
@@ -181,7 +193,7 @@ class Display(object):
 
         font = get_xkcd_font(30)
 
-        cell_px_position = self.cell_to_px(self.a_position)
+        cell_px_position, _ = self.cell_to_px(self.a_position)
 
         text = font.render("A", True, (0, 0, 0))
         self.game_screen.blit(text, cell_px_position)
@@ -198,14 +210,18 @@ class Display(object):
 
         font = get_xkcd_font(15)
 
-        cell_px_position = self.cell_to_px(building.Position)
+        cell_px_position, is_on_screen = self.cell_to_px(building.Position)
 
-        text = font.render(building.Name, True, (0, 0, 0))
-        self.game_screen.blit(text, cell_px_position)
+        if is_on_screen:
+            text = font.render(building.Name, True, (0, 0, 0))
+            self.game_screen.blit(text, cell_px_position)
 
-        rectangle = cell_px_position + (self.cell_size, self.cell_size)
-        pygame.draw.rect(self.game_screen, (0, 0, 0), rectangle, 2)
+            rectangle = cell_px_position + (self.cell_size, self.cell_size)
+            pygame.draw.rect(self.game_screen, (0, 0, 0), rectangle, 2)
         return
+
+
+
 
     def black_unvisible(self, map_visible):
         """
@@ -213,17 +229,20 @@ class Display(object):
         """
 
         N, M = np.shape(map_visible)
-        for i in range(N):
-            for j in range(M):
+        (min_i, max_i, min_j, max_j) = self.get_visible_cells()
+        for i in range(min_i, max_i+1):
+            for j in range(min_j, max_j + 1):
                 if not map_visible[i, j] and not cheats.NO_FOG_OF_WAR:
-                    cell_px_position = self.cell_to_px((i, j),)
-                    rectangle = cell_px_position + \
-                        (self.cell_size, self.cell_size)
-                    pygame.draw.rect(self.game_screen, (0, 0, 0), rectangle, 0)
+                    cell_px_position, is_on_screen = self.cell_to_px((i, j),)
+                    if is_on_screen:
+                        rectangle = cell_px_position + \
+                            (self.cell_size, self.cell_size)
+                        pygame.draw.rect(self.game_screen, (0, 0, 0), rectangle, 0)
                 elif cheats.SHOW_WATER and (i, j) in WATER_TILES:
-                    cell_px_position = self.cell_to_px((i, j),)
-                    rectangle = cell_px_position + \
-                        (self.cell_size, self.cell_size)
-                    pygame.draw.rect(self.game_screen, (0, 0, 255), rectangle, 0)
+                    cell_px_position, is_on_screen = self.cell_to_px((i, j),)
+                    if is_on_screen:
+                        rectangle = cell_px_position + \
+                            (self.cell_size, self.cell_size)
+                        pygame.draw.rect(self.game_screen, (0, 0, 255), rectangle, 0)
 
         return
