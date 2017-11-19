@@ -14,7 +14,7 @@ import src.Visuals as vs
 
 pygame.init()
 pygame.key.set_repeat(500, 100)
-pygame.font.init() 
+pygame.font.init()
 
 FRAME_RATE = 30
 RESOURCE_TIME_STEP = 2   # seconds per resource update
@@ -57,7 +57,7 @@ if __name__ == "__main__":
                          cell_size,
                          game_window_size,
                          map_window_size,
-                         map_background_img) 
+                         map_background_img)
     menu = vs.Menu(game_window_size,
                    map_window_size,
                    display.game_screen)
@@ -70,8 +70,11 @@ if __name__ == "__main__":
     attack_flag = False
     clock = pygame.time.Clock()
     resource_timer = 0
+
+    mp.update_visible_map(a_position, map_visible)
+
     while game_running:
-       
+
         key_pressed = None
         for event in pygame.event.get():
             # quit when on klicking x or pressing the x key
@@ -82,7 +85,7 @@ if __name__ == "__main__":
                     game_running = False
                 else:
                     key_pressed = event.key
-        
+
         #keys = pygame.key.get_pressed()
         # movement:
         # calculate next position
@@ -91,7 +94,7 @@ if __name__ == "__main__":
             #   check if space needs to be made visible in map_visible
             map_visible = mp.update_visible_map(a_position, map_visible)
             #   check if border was attacked in map_borders
-            #attack_flag = mp.check_attack(a_position, map_borders) 
+            #attack_flag = mp.check_attack(a_position, map_borders)
             pass
 
         if attack_flag:
@@ -100,7 +103,7 @@ if __name__ == "__main__":
             pass
 
         # building action:
-        #   add/upgrade building in buildings_list 
+        #   add/upgrade building in buildings_list
         if key_pressed == pygame.K_b:
             vs.display_building_menu(available_buildings, menu)
             new_building = handle_building_menu()
@@ -110,7 +113,7 @@ if __name__ == "__main__":
                 print(output_text)
 
         # soldier action:
-        #   add/upgrade building in buildings_list 
+        #   add/upgrade building in buildings_list
         if key_pressed == pygame.K_s:
             vs.display_soldier_menu(menu)
             # TODO do something with the key presses

@@ -13,5 +13,5 @@ cell_size = 25 # size in px of the grid cells squares
 
 map_size = (int(y/cell_size), int(x/cell_size))
 
-map_visible = np.zeros((map_size[0], map_size[1]),)  
+map_visible = np.zeros((map_size[0], map_size[1]),)
 map_borders = ["a"]
