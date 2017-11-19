@@ -65,7 +65,7 @@ class Menu(object):
 
         for i, entry in enumerate(self.menu_entries):
             text_position = (top_x, top_y + i*(self.font_size+5))
-            text = font.render("(" + entry['key'] + ') ' + entry["text"], True, self.color)
+            text = font.render("-" + entry['key'] + '- ' + entry["text"], True, self.color)
             self.game_screen.blit(text, text_position)
 
         pygame.display.update()
