@@ -30,8 +30,10 @@ def handle_building_menu():
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 building_menu = False
-                if pygame.key.name(event.key) in building_keys:
-                    return available_buildings['Home']
+                new_key = pygame.key.name(event.key)
+                if new_key in building_keys:
+                    name = building_keys[new_key]
+                    return available_buildings[name]
 
 
 if __name__ == "__main__":
@@ -104,6 +106,7 @@ if __name__ == "__main__":
             new_building = handle_building_menu()
             if new_building:
                 output_text = all_resources.add_building(a_position, new_building)
+                print(new_building)
                 print(output_text)
 
         # soldier action:
