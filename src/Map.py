@@ -88,10 +88,3 @@ def update_visible_map(a_position, map_visible):
     return new_map_visible
 
 
-def update_border_state(a_position, map_borders):
-    """
-    check if a border attack occurs at the current position
-    return True if an attack occurs
-    """
-    attack_flag = False
-    return attack_flag
