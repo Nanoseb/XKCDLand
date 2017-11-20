@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(name='XKCDland',
       version='0.0.1',
@@ -7,6 +7,9 @@ setup(name='XKCDland',
       url='https://github.com/Nanoseb/XKCDLand',
       packages=['XKCD_Land'],
       scripts=['xkcdland'],
-      install_requires=["pygame", "numpy", "PIL", ]
-
+      install_requires=[
+        "pygame",
+        "numpy",
+        "pillow",
+      ]
 )
