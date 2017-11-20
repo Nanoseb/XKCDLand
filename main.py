@@ -43,7 +43,7 @@ def handle_soldier_menu():
             if event.type == pygame.KEYDOWN:
                 new_key = pygame.key.name(event.key)
                 soldier_msg = None
-                if new_key == 'c':
+                if new_key == 'b':
                     soldier_menu = False
                 if new_key == 'm':
                     soldier_msg = all_resources.add_soldier(-1)
