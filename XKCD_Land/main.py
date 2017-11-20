@@ -3,16 +3,15 @@ A game for the 2017 xkcd ludum dare
 """
 
 import pygame
-import random
 import numpy as np
-from src.assets.buildings import available_buildings
-import src.assets.maps
-import src.assets.display
-import src.assets.border 
-import src.Map as mp
-import src.Borders as br
-import src.Resources as rs
-import src.Visuals as vs
+from .src.assets.buildings import available_buildings
+from .src.assets import maps
+from .src.assets import display
+from .src.assets import border
+from .src import Map as mp
+from .src import Borders as br
+from .src import Resources as rs
+from .src import Visuals as vs
 
 pygame.init()
 pygame.key.set_repeat(500, 100)
@@ -56,34 +55,34 @@ def handle_soldier_menu():
 
 
 
-if __name__ == "__main__":
-    sprites_list = pygame.sprite.Group()
-    pygame.display.set_caption("XKCD World")
+def xkcdmain():
+    pygame.display.set_caption("XKCD Land")
     game_running = True
 
-    # Loading borders
-    map_border = src.assets.border.border_map
 
     # loading map file
-    map_visible = src.assets.maps.map_visible
-    map_cell_size = src.assets.maps.map_cell_size
-    map_background_img = src.assets.maps.map_background_img
-    cell_size = src.assets.maps.cell_size
-    a_position = src.assets.maps.start_position
+    map_visible = maps.map_visible
+    map_cell_size = maps.map_cell_size
+    map_background_img = maps.map_background_img
+    cell_size = maps.cell_size
+    a_position = maps.start_position
+
+    # Loading borders
+    map_border = border.border_map
 
     # loading display properties
-    game_window_size = src.assets.display.game_window_size
-    map_window_size = src.assets.display.map_window_size
+    game_window_size = display.game_window_size
+    map_window_size = display.map_window_size
 
-    display = vs.Display(a_position,
-                         cell_size,
-                         game_window_size,
-                         map_window_size,
-                         map_cell_size,
-                         map_background_img)
+    main_display = vs.Display(a_position,
+                              cell_size,
+                              game_window_size,
+                              map_window_size,
+                              map_cell_size,
+                              map_background_img)
     menu = vs.Menu(game_window_size,
                    map_window_size,
-                   display.game_screen)
+                   main_display.game_screen)
     vs.display_initial_menu(menu)
 
 
@@ -121,24 +120,24 @@ if __name__ == "__main__":
 
         if has_moved:
             #   check if border was attacked in map_borders
-            attack_flag, border = br.is_on_border(new_a_position, map_border)
+            attack_flag, movement_border = br.is_on_border(new_a_position, map_border)
         else:
             attack_flag = False
 
         if attack_flag:
-            new_soldiers, border_defeated = border.attack(all_resources.ResourceDict["soldiers"])
-            display.display_battle(new_a_position, a_position, all_resources, map_visible, map_border, clock, FRAME_RATE)
+            new_soldiers, border_defeated = movement_border.attack(all_resources.ResourceDict["soldiers"])
+            main_display.display_battle(new_a_position, a_position, all_resources, map_visible, map_border, clock, FRAME_RATE)
             if border_defeated:
                 map_border = br.desactivate_border(border.border_id, map_border)
                 a_position = new_a_position
-                display.add_message("You won the battle !")
+                main_display.add_message("You won the battle !")
             else:
                 has_moved = False
-                display.add_message("you lost " + str(all_resources.ResourceDict["soldiers"] - max(0,new_soldiers)) + " soldiers")
+                main_display.add_message("you lost " + str(all_resources.ResourceDict["soldiers"] - max(0,new_soldiers)) + " soldiers")
                 all_resources.ResourceDict["soldiers"] = max(0,new_soldiers)
         else:
             a_position = new_a_position
-            border = None
+            movement_border = None
 
 
         if has_moved:
@@ -155,12 +154,12 @@ if __name__ == "__main__":
             new_building = handle_building_menu()
             if new_building:
                 output_text = all_resources.add_building(a_position, new_building)
-                display.add_message(output_text)
+                main_display.add_message(output_text)
 
         # add building in buildings_list
         if key_pressed == pygame.K_u:
             output_text = all_resources.upgrade_building(a_position)
-            display.add_message(output_text)
+            main_display.add_message(output_text)
 
         # soldier action:
         #   add/upgrade building in buildings_list
@@ -175,7 +174,7 @@ if __name__ == "__main__":
         resource_timer += 1
 
         # update screen
-        display.update_display(a_position, all_resources, map_visible, map_border)
+        main_display.update_display(a_position, all_resources, map_visible, map_border)
         vs.display_initial_menu(menu)
 
 

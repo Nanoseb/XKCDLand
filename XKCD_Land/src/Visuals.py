@@ -3,19 +3,19 @@ from __future__ import division
 import time
 import numpy as np
 import pygame
-import src.assets.menu
-from src.assets.fonts import get_xkcd_font
-from src.assets.water import WATER_TILES
-from src.assets.sprite import image_dict
-from src.assets.sprite import frame_speed
-from src.assets import cheats
+from .assets import menu as assets_menu
+from .assets.fonts import get_xkcd_font
+from .assets.water import WATER_TILES
+from .assets.sprite import image_dict
+from .assets.sprite import frame_speed
+from .assets import cheats
 from .Rainfall import Rainfall
 
 
 
 def display_initial_menu(menu):
     menu.clear_menu()
-    menu.menu_entries = src.assets.menu.initial_menu
+    menu.menu_entries = assets_menu.initial_menu
     menu.display_menu()
     return
 
@@ -34,7 +34,7 @@ def display_building_menu(available_building, menu):
 
 def display_soldier_menu(menu):
     menu.clear_menu()
-    menu.menu_entries = src.assets.menu.soldier_menu
+    menu.menu_entries = assets_menu.soldier_menu
     menu.display_menu()
     return
 
