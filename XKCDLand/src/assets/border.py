@@ -30,6 +30,5 @@ def load_border_map():
 
     return border_map
 
-
 border_map = load_border_map()
 

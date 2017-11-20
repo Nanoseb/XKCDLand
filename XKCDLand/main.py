@@ -3,16 +3,15 @@ A game for the 2017 xkcd ludum dare
 """
 
 import pygame
-import random
 import numpy as np
 from .src.assets.buildings import available_buildings
-import .src.assets.maps
-import .src.assets.display
-import .src.assets.border 
-import .src.Map as mp
-import .src.Borders as br
-import .src.Resources as rs
-import .src.Visuals as vs
+from .src.assets import maps as maps
+from .src.assets import display as display
+from .src.assets import border as border
+from .src import Map as mp
+from .src import Borders as br
+from .src import Resources as rs
+from .src import Visuals as vs
 
 pygame.init()
 pygame.key.set_repeat(500, 100)
@@ -56,24 +55,24 @@ def handle_soldier_menu():
 
 
 
-if __name__ == "__main__":
-    sprites_list = pygame.sprite.Group()
-    pygame.display.set_caption("XKCD World")
+def xkcdmain():
+    pygame.display.set_caption("XKCD Land")
     game_running = True
 
-    # Loading borders
-    map_border = src.assets.border.border_map
 
     # loading map file
-    map_visible = src.assets.maps.map_visible
-    map_cell_size = src.assets.maps.map_cell_size
-    map_background_img = src.assets.maps.map_background_img
-    cell_size = src.assets.maps.cell_size
-    a_position = src.assets.maps.start_position
+    map_visible = maps.map_visible
+    map_cell_size = maps.map_cell_size
+    map_background_img = maps.map_background_img
+    cell_size = maps.cell_size
+    a_position = maps.start_position
+
+    # Loading borders
+    map_border = border.border_map
 
     # loading display properties
-    game_window_size = src.assets.display.game_window_size
-    map_window_size = src.assets.display.map_window_size
+    game_window_size = display.game_window_size
+    map_window_size = display.map_window_size
 
     display = vs.Display(a_position,
                          cell_size,

@@ -3,7 +3,7 @@ import pygame
 
 import textwrap
 
-from src.assets.water import WATER_TILES
+from .assets.water import WATER_TILES
 
 
 def calculate_next_position(new_key, a_position, map_size, resources):

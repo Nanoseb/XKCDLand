@@ -1,0 +1,3 @@
+import XKCDLand.main as main
+main.xkcdmain()
+
