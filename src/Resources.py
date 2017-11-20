@@ -7,7 +7,7 @@ import numpy as np
 from .assets.buildings import building_messages, available_buildings
 from .assets import cheats
 
-SOLDIER_COST = 250
+SOLDIER_COST = 50
 
 def get_building_keys():
     building_keys = {}
@@ -83,8 +83,8 @@ class AllResource(object):
         if not sufficient_soldier_pay:
             self.ResourceDict['soldiers'] = min(self.ResourceDict['money'],
                                                 self.ResourceDict['food'])
-        self.ResourceDict['money'] -= self.ResourceDict['soldiers']
-        self.ResourceDict['money'] -= self.ResourceDict['soldiers']
+        self.ResourceDict['food'] -= self.ResourceDict['soldiers']
+        #self.ResourceDict['money'] -= self.ResourceDict['soldiers']
 
 
     def check_sufficient_resources(self, specifications):
