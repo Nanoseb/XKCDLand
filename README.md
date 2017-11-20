@@ -4,7 +4,7 @@
 ## Installation
 To install 
 ```
-pip install --user https://github.com/Nanoseb/XKCDLandarchive/master.tar.gz
+pip install --user https://github.com/Nanoseb/XKCDLand/archive/master.tar.gz
 ```
 ## Run
 Just run in a terminal:
