@@ -35,7 +35,7 @@ def handle_building_menu():
                     name = building_keys[new_key]
                     return available_buildings[name]
 
-def handle_soldier_menu():
+def handle_soldier_menu(main_display, all_resources):
     soldier_menu = True
     while soldier_menu is True:
         for event in pygame.event.get():
@@ -49,8 +49,8 @@ def handle_soldier_menu():
                 if new_key == 't':
                     soldier_msg = all_resources.add_soldier(+1)
                 if soldier_msg:
-                    display.add_message(soldier_msg)
-            display.display_messages()
+                    main_display.add_message(soldier_msg)
+            main_display.display_messages()
             pygame.display.update()
 
 
@@ -165,7 +165,7 @@ def xkcdmain():
         #   add/upgrade building in buildings_list
         if key_pressed == pygame.K_s:
             vs.display_soldier_menu(menu)
-            new_soldiers = handle_soldier_menu()
+            new_soldiers = handle_soldier_menu(main_display, all_resources)
 
         # calculate next time step resources
         if resource_timer > (FRAME_RATE * RESOURCE_TIME_STEP):
