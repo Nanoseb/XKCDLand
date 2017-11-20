@@ -156,12 +156,13 @@ class AllResource(object):
                 return building_messages['no_upgrade_available']
             else:
                 next_building = available_buildings[next_building_name]
-                if self.check_sufficient_resources(next_building) is True:
+                [resource_check, missing_resource_text] = self.check_sufficient_resources(next_building)
+                if resource_check:
                     self.delete_building_for_upgrade(position)
                     self.Buildings.append(Building(next_building, position))
                     return building_messages['build_success']
                 else:
-                    return building_messages['no_resource']
+                    return building_messages['no_resource'] + missing_resource_text
 
     def add_soldier(self, new_soldier):
         """
