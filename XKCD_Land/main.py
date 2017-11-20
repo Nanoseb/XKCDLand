@@ -74,15 +74,15 @@ def xkcdmain():
     game_window_size = display.game_window_size
     map_window_size = display.map_window_size
 
-    display = vs.Display(a_position,
-                         cell_size,
-                         game_window_size,
-                         map_window_size,
-                         map_cell_size,
-                         map_background_img)
+    main_display = vs.Display(a_position,
+                              cell_size,
+                              game_window_size,
+                              map_window_size,
+                              map_cell_size,
+                              map_background_img)
     menu = vs.Menu(game_window_size,
                    map_window_size,
-                   display.game_screen)
+                   main_display.game_screen)
     vs.display_initial_menu(menu)
 
 
@@ -126,14 +126,14 @@ def xkcdmain():
 
         if attack_flag:
             new_soldiers, border_defeated = movement_border.attack(all_resources.ResourceDict["soldiers"])
-            display.display_battle(new_a_position, a_position, all_resources, map_visible, map_border, clock, FRAME_RATE)
+            main_display.display_battle(new_a_position, a_position, all_resources, map_visible, map_border, clock, FRAME_RATE)
             if border_defeated:
                 map_border = br.desactivate_border(border.border_id, map_border)
                 a_position = new_a_position
-                display.add_message("You won the battle !")
+                main_display.add_message("You won the battle !")
             else:
                 has_moved = False
-                display.add_message("you lost " + str(all_resources.ResourceDict["soldiers"] - max(0,new_soldiers)) + " soldiers")
+                main_display.add_message("you lost " + str(all_resources.ResourceDict["soldiers"] - max(0,new_soldiers)) + " soldiers")
                 all_resources.ResourceDict["soldiers"] = max(0,new_soldiers)
         else:
             a_position = new_a_position
@@ -154,12 +154,12 @@ def xkcdmain():
             new_building = handle_building_menu()
             if new_building:
                 output_text = all_resources.add_building(a_position, new_building)
-                display.add_message(output_text)
+                main_display.add_message(output_text)
 
         # add building in buildings_list
         if key_pressed == pygame.K_u:
             output_text = all_resources.upgrade_building(a_position)
-            display.add_message(output_text)
+            main_display.add_message(output_text)
 
         # soldier action:
         #   add/upgrade building in buildings_list
@@ -174,7 +174,7 @@ def xkcdmain():
         resource_timer += 1
 
         # update screen
-        display.update_display(a_position, all_resources, map_visible, map_border)
+        main_display.update_display(a_position, all_resources, map_visible, map_border)
         vs.display_initial_menu(menu)
 
 
