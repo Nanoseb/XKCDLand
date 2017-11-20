@@ -130,6 +130,7 @@ class Display(object):
         # display A
         self.display_A()
 
+        self.display_water()
         # display border map
         self.display_borders(map_border)
 
@@ -328,9 +329,25 @@ class Display(object):
         return
 
 
+
+    def display_water(self):
+        (min_i, max_i, min_j, max_j) = self.get_visible_cells()
+        for i in range(min_i, max_i+1):
+            for j in range(min_j, max_j + 1):
+                if (i,j) in WATER_TILES:
+                    cell_px_position, is_on_screen = self.cell_to_px((i, j),)
+                    if is_on_screen:
+                        s = pygame.Surface((self.cell_size, self.cell_size))  # the size of your rect
+                        s.set_alpha(28) 
+                        s.fill((0,0,200))
+                        self.game_screen.blit(s,cell_px_position)   
+
+        return
+
+
+
+
     def display_borders(self, map_border):
-        s = pygame.Surface(self.window_size)
-        s.set_alpha(60)
         (min_i, max_i, min_j, max_j) = self.get_visible_cells()
         for i in range(min_i, max_i+1):
             for j in range(min_j, max_j + 1):
