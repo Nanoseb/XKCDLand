@@ -5,7 +5,7 @@ setup(name='XKCDland',
       description='A XKCD inspired game',
       license='MIT',
       url='https://github.com/Nanoseb/XKCDLand',
-      packages=['XKCDLand'],
+      packages=['XKCD_Land'],
       scripts=['xkcdland'],
       install_requires=["pygame", "numpy", "PIL", ]
 
