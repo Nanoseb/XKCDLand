@@ -125,6 +125,8 @@ class AllResource(object):
                 cheats.INFINITE_RESOURCES
             ):
                 self.Buildings.append(Building(building_specs, position))
+                for resource_name in building_specs['Initial Cost']:
+                    self.ResourceDict[resource_name] -= building_specs['Initial Cost'][resource_name]
                 return building_messages['build_success']
             else:
                 return building_messages['no_resource']

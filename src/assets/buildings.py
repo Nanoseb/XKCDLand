@@ -25,7 +25,7 @@ available_buildings = {
     "Market": {'Name': "Market",
                'Resource Change': {'food': -5,
                                    'money': 3},
-               'Initial Cost': {'food': 5},
+               'Initial Cost': {'food': 1},
                'Min Corners': 4,
                'Build Key': 'm',
                'Next': "Restaurant",
