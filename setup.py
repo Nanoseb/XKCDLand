@@ -11,5 +11,10 @@ setup(name='XKCDland',
         "pygame",
         "numpy",
         "pillow",
-      ]
+      ],
+      entry_points={
+        'console_scripts': [
+            'xkcdland=XKCD_Land.main:xkcdmain',
+        ],
+      },
 )
