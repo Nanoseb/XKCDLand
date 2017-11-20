@@ -27,31 +27,31 @@ building_keys = rs.get_building_keys()
 def handle_building_menu():
     building_menu = True
     while building_menu is True:
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                building_menu = False
-                new_key = pygame.key.name(event.key)
-                if new_key in building_keys:
-                    name = building_keys[new_key]
-                    return available_buildings[name]
+        event = pygame.event.wait()
+        if event.type == pygame.KEYDOWN:
+            building_menu = False
+            new_key = pygame.key.name(event.key)
+            if new_key in building_keys:
+                name = building_keys[new_key]
+                return available_buildings[name]
 
 def handle_soldier_menu(main_display, all_resources):
     soldier_menu = True
     while soldier_menu is True:
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                new_key = pygame.key.name(event.key)
-                soldier_msg = None
-                if new_key == 'b':
-                    soldier_menu = False
-                if new_key == 's':
-                    soldier_msg = all_resources.add_soldier(-1)
-                if new_key == 't':
-                    soldier_msg = all_resources.add_soldier(+1)
-                if soldier_msg:
-                    main_display.add_message(soldier_msg)
-            main_display.display_messages()
-            pygame.display.update()
+        event = pygame.event.wait()
+        if event.type == pygame.KEYDOWN:
+            new_key = pygame.key.name(event.key)
+            soldier_msg = None
+            if new_key == 'b':
+                soldier_menu = False
+            if new_key == 's':
+                soldier_msg = all_resources.add_soldier(-1)
+            if new_key == 't':
+                soldier_msg = all_resources.add_soldier(+1)
+            if soldier_msg:
+                main_display.add_message(soldier_msg)
+        main_display.display_messages()
+        pygame.display.update()
 
 
 
