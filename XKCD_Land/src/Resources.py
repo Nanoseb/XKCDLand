@@ -69,7 +69,6 @@ class AllResource(object):
                     next_corners = max(next_corners, house.InOut['corners'])
         self.Buildings.sort(key=lambda x: x.DistanceFromA)
         self.ResourceDict['corners'] = next_corners
-        print(self.ResourceDict)
 
     def update_resources(self, current_building):
         """
@@ -91,7 +90,6 @@ class AllResource(object):
     def check_sufficient_resources(self, specifications):
         sufficient_resources = True
         missing = "-"
-        print(specifications)
         for key in specifications['Initial Cost'].keys():
             resource_available = (specifications['Initial Cost'][key] <= self.ResourceDict[key])
             sufficient_resources &= resource_available
@@ -125,7 +123,6 @@ class AllResource(object):
         checks if a building can be built; if so, a building is added.
         Returns screen message depending on building success
         """
-        print("Debug: adding building")
         if position in WATER_TILES:
             return building_messages['building_on_water']
 
@@ -150,7 +147,6 @@ class AllResource(object):
         checks if a building can be built; if so, a building is added.
         Returns screen message depending on building success
         """
-        print("Debug: upgrading building")
         current_building_name = self.check_for_existing_building(position) 
         if current_building_name is False:
             return building_messages['not_on_building']
