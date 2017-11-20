@@ -126,4 +126,5 @@ building_messages = {
     'no_resource': "Not sufficient resources!",
     'upgrade_success': "Building was successfully upgraded",
     'not_on_building': "Before upgrading, you have to first build!",
+    'buildind_on_water': "You can't build this on water!",
     'no_upgrade_available': "This building is already awesome, no need to make it better?!"}
