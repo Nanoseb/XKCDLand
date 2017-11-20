@@ -128,7 +128,7 @@ def xkcdmain():
             new_soldiers, border_defeated = movement_border.attack(all_resources.ResourceDict["soldiers"])
             main_display.display_battle(new_a_position, a_position, all_resources, map_visible, map_border, clock, FRAME_RATE)
             if border_defeated:
-                map_border = br.desactivate_border(border.border_id, map_border)
+                map_border = br.desactivate_border(movement_border.border_id, map_border)
                 a_position = new_a_position
                 main_display.add_message("You won the battle !")
             else:
