@@ -1,0 +1,3 @@
+recursive-include XKCD_Land/src/assets/images *.png
+include XKCD_Land/src/assets/xkcd.ttf
+
