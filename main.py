@@ -45,9 +45,9 @@ def handle_soldier_menu():
                 soldier_msg = None
                 if new_key == 'b':
                     soldier_menu = False
-                if new_key == 'm':
+                if new_key == 's':
                     soldier_msg = all_resources.add_soldier(-1)
-                if new_key == 'p':
+                if new_key == 't':
                     soldier_msg = all_resources.add_soldier(+1)
                 if soldier_msg:
                     display.add_message(soldier_msg)
