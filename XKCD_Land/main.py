@@ -120,12 +120,12 @@ def xkcdmain():
 
         if has_moved:
             #   check if border was attacked in map_borders
-            attack_flag, border = br.is_on_border(new_a_position, map_border)
+            attack_flag, movement_border = br.is_on_border(new_a_position, map_border)
         else:
             attack_flag = False
 
         if attack_flag:
-            new_soldiers, border_defeated = border.attack(all_resources.ResourceDict["soldiers"])
+            new_soldiers, border_defeated = movement_border.attack(all_resources.ResourceDict["soldiers"])
             display.display_battle(new_a_position, a_position, all_resources, map_visible, map_border, clock, FRAME_RATE)
             if border_defeated:
                 map_border = br.desactivate_border(border.border_id, map_border)
@@ -137,7 +137,7 @@ def xkcdmain():
                 all_resources.ResourceDict["soldiers"] = max(0,new_soldiers)
         else:
             a_position = new_a_position
-            border = None
+            movement_border = None
 
 
         if has_moved:
