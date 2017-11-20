@@ -5,9 +5,9 @@ A game for the 2017 xkcd ludum dare
 import pygame
 import numpy as np
 from .src.assets.buildings import available_buildings
-from .src.assets import maps as maps
-from .src.assets import display as display
-from .src.assets import border as border
+from .src.assets import maps
+from .src.assets import display
+from .src.assets import border
 from .src import Map as mp
 from .src import Borders as br
 from .src import Resources as rs
