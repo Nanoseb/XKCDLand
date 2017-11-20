@@ -108,6 +108,12 @@ class AllResource(object):
                 existing_building = house.Name
         return existing_building
 
+    def delete_building_for_upgrade(self, position):
+        for house in self.Buildings:
+            if house.Position == position:
+                self.Buildings.remove(house)
+
+            
     def add_building(self, position, building_specs):
         """
         checks if a building can be built; if so, a building is added.
@@ -148,6 +154,7 @@ class AllResource(object):
             else:
                 next_building = available_buildings[next_building_name]
                 if self.check_sufficient_resources(next_building) is True:
+                    self.delete_building_for_upgrade(position)
                     self.Buildings.append(Building(next_building, position))
                     return building_messages['build_success']
                 else:
@@ -158,6 +165,13 @@ class AllResource(object):
         Adds or removes soldiers after checking if there are enough resources or soldiers
         """
         soldier_msg = "Updating soldiers"
+        has_barrack = False
+        for b in self.Buildings:
+            if b.Name == 'Barracks':
+                if b.ActiveState is True:
+                    has_barrack = True
+        if not has_barrack:
+            return "Soldiers need an active Barrack for training!"
         if new_soldier < 0:
             if self.ResourceDict['soldiers'] > 0:
                 self.ResourceDict['soldiers'] -= 1
