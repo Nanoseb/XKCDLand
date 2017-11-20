@@ -90,12 +90,18 @@ class AllResource(object):
 
     def check_sufficient_resources(self, specifications):
         sufficient_resources = True
+        missing = "-"
         print(specifications)
         for key in specifications['Initial Cost'].keys():
-            sufficient_resources &= (specifications['Initial Cost'][key] <= self.ResourceDict[key])
-        sufficient_resources &= (specifications['Min Corners'] <= self.ResourceDict['corners'])
-
-        return sufficient_resources
+            resource_available = (specifications['Initial Cost'][key] <= self.ResourceDict[key])
+            sufficient_resources &= resource_available
+            if not resource_available:
+                missing += key + "-"
+        resource_available = (specifications['Min Corners'] <= self.ResourceDict['corners'])
+        sufficient_resources &= resource_available
+        if not resource_available:
+            missing += "Corners -"
+        return [sufficient_resources, missing]
 
     def check_for_existing_building(self, position):
         """
@@ -126,8 +132,9 @@ class AllResource(object):
         if self.check_for_existing_building(position) is not False:
             return building_messages['on_existing_building']
         else:
+            [resource_check, missing_resource_text] = self.check_sufficient_resources(building_specs)
             if (
-                self.check_sufficient_resources(building_specs) is True or
+                resource_check is True or
                 cheats.INFINITE_RESOURCES
             ):
                 self.Buildings.append(Building(building_specs, position))
@@ -135,7 +142,7 @@ class AllResource(object):
                     self.ResourceDict[resource_name] -= building_specs['Initial Cost'][resource_name]
                 return building_messages['build_success']
             else:
-                return building_messages['no_resource']
+                return building_messages['no_resource'] + missing_resource_text
 
     def upgrade_building(self, position):
         """

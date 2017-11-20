@@ -123,7 +123,7 @@ available_buildings = {
 building_messages = {
     'on_existing_building': "sorry, you might be mighty, but you can't build where there already is stone laid",
     'build_success': "A new building was built",
-    'no_resource': "Not sufficient resources!",
+    'no_resource': "Missing resources: ",
     'upgrade_success': "Building was successfully upgraded",
     'not_on_building': "Before upgrading, you have to first build!",
     'buildind_on_water': "You can't build this on water!",
